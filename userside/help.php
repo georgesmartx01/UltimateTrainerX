@@ -11,11 +11,11 @@
     </head>
 
     <?php
-    include('connectdb.php');
+    include('../userside/connectdb.php');
     session_start();
-    include "navbar.php";
+    include "../userside/navbar.php";
     ?>
     <body>
-        
+        <h1>Help articles</h1>
     </body>
 </html

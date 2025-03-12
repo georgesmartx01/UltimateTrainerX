@@ -12,11 +12,12 @@
     </head>
 
     <?php
-    include('connectdb.php');
+    include('../userside/connectdb.php');
     session_start();
-    include "navbar.php";
+    include "../userside/navbar.php";
     ?>
     <body>
-        <h1>hello</h1>
+        <br><br><br><br>
+        <h1>How good is your brain?</h1>
     </body>
 </html

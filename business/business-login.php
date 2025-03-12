@@ -54,11 +54,12 @@ if(isset($_GET['msg'])){
                 <div class="input-box">
                     <input type="text" placeholder="Password" required>
                     <i class="fa-solid fa-lock"></i>
+                    <i class="fa-solid fa-eye-slash" id="togglePassword" onclick="togglePasswordVisibility()"></i>
                 </div>
     
                 <div class="remember-forgot">
                     <label><input type="checkbox">Remember me</label>
-                    <a href="forgotpassword.php">Forgot Password</a>
+                    <a href="../userside/forgot-password.php">Forgot Password</a>
                 </div>
     
                 <button type="submit" class="loginbtn">Login</button>
@@ -68,5 +69,24 @@ if(isset($_GET['msg'])){
                 </div>
             </form>
         </div>
+
+        <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('userInput');
+            const togglePassword = document.getElementById('togglePassword');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            togglePassword.classList.toggle('fa-eye-slash');
+            togglePassword.classList.toggle('fa-eye');
+            
+            if (togglePassword.classList.contains('fa-eye')) {
+                togglePassword.style.right = '50px';
+            } else if (togglePassword.classList.contains('fa-eye-slash')) {
+                togglePassword.style.right = '50px';
+            } else {
+            }
+        }
+        </script>
     </body>
 </html

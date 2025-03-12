@@ -35,33 +35,54 @@ if(isset($_GET['msg'])){
 <body>
     <div class="wrapper">
         <form>
-            <h1>Login</h1>
+            <h1>User Login</h1>
             <div class="input-box">
                 <input type="text" placeholder="Username" required>
                 <i class="fa fa-user"></i>
             </div>
             
             <div class="input-box">
-                <input type="text" placeholder="Password" required>
+                <input type="password" value="Password" id="userInput" required>
                 <i class="fa-solid fa-lock"></i>
+                <i class="fa-solid fa-eye-slash" id="togglePassword" onclick="togglePasswordVisibility()"></i>
             </div>
-    
+
             <div class="remember-forgot">
                 <label><input type="checkbox">Remember me</label>
-                <a href="forgotpassword.php">Forgot Password</a>
+                <a href="forgot-password.php">Forgot Password</a>
             </div>
     
-            <button type="submit" class="login-btn">User Login</button>
+            <button type="submit" class="login-btn">Login</button>
     
             <div class="register-link">
-                <p>Don't have an account?<a href="register-user.php"> Register</a></p>
+                <p>Don't have an account? <a href="register-user.php">Register</a></p>
+                <br>
+                <p>Other login options</p>
             </div>
 
-            <button type="submit" class="login-business-btn">Login as business</button>
-            <button type="submit" class="login-operator-btn">Login as operator</button>            
-
+            <button class="login-business-btn"><a href="../business/business-login.php">Login as business</a></button>
+            <button class="login-operator-btn"><a href="../operator/operator-login.php">Login as operator</a></button>            
         </form>
     </div>
+
+    <script>
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('userInput');
+        const togglePassword = document.getElementById('togglePassword');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        togglePassword.classList.toggle('fa-eye-slash');
+        togglePassword.classList.toggle('fa-eye');
+        
+        if (togglePassword.classList.contains('fa-eye')) {
+            togglePassword.style.right = '50px';
+        } else if (togglePassword.classList.contains('fa-eye-slash')) {
+            togglePassword.style.right = '50px';
+        } else {
+        }
+    }
+    </script>
     
     <?php 
     if(isset($error)) {

@@ -9,7 +9,7 @@
  * using gradient effect for the navbar
 */
 nav {
-    background: linear-gradient(to right, rgb(50, 67, 145), rgb(30, 42, 97), rgb(19, 19, 121), rgb(14, 14, 95), rgb(15, 15, 85), rgb(10, 17, 83), rgb(7, 13, 63), rgb(7, 13, 66));
+    background: linear-gradient(to right, rgb(32, 47, 112), rgb(30, 42, 97), rgb(19, 19, 121), rgb(14, 14, 95), rgb(15, 15, 85), rgb(10, 17, 83), rgb(7, 13, 63), rgb(7, 13, 66));
     height: 60px;
     display: flex;
     align-items: center;
@@ -31,28 +31,47 @@ nav {
     width: 100%;
 }
 
-.nav_links {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 15px;
-    padding-right: 15px;
-}
-
 .nav_list .logo {
     margin-right: auto;
     width: fit-content;
 }
 
-.nav_links a {
-    color: #fff;
+.nav_links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+}
+
+.nav_links li {
+    display: block;
+    transition: background-color 0.1s;
+    padding: 20px 12px;
+}
+
+.nav_links li a {
+    display: block; /* Ensure link occupies the entire block */
+    color: black;
     text-decoration: none;
     font-size: 18px;
     transition: color 0.1s;
 }
 
-.nav_links a:hover, .icon-container i:hover {
-    color: darkslateblue;
+/* New styles added */
+.nav_links li:hover {
+    background: linear-gradient(darkslateblue, slateblue, darkblue, blue);
+}
+
+.nav_links li.active {
+    background: linear-gradient(blue, darkblue, slateblue, darkslateblue);
+}
+
+.nav_links li a:hover {
+    color: black;
+}
+
+.nav_links li.active a {
+    color: black;
 }
 
 .icon-container {
@@ -99,8 +118,4 @@ nav {
         text-align: center;
         padding: 15px 0;
     }
-}
-
-.nav_list.nav-active {
-    display: flex;
 }

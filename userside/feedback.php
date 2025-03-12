@@ -1,7 +1,6 @@
 <?php
-include('connectdb.php');
+include('../userside/connectdb.php');
 session_start();
-include "navbar.php";
 
 echo $_SESSION['User_ID'];
 
@@ -16,7 +15,7 @@ if (isset($_SESSION['User_ID'])) {
     $review_stmt->bindParam(':description', $revdesc, PDO::PARAM_STR);
     $review_stmt->execute();
 
-    header("Location: accountpage.php?reviewsent=true");
+    header("Location: ../userside/accountpage.php?reviewsent=true");
     exit();
 } else {
     echo "error";
@@ -29,10 +28,12 @@ if (isset($_SESSION['User_ID'])) {
         <meta charset="UTF-8"/>
         <title>Give Feedback</title>
         <link rel="stylesheet" type="text/css" href="../CSS/navbar.css">
-        <script defer src="JavaScript/script.js"></script>
+        <script defer src="../JavaScript/main-script.js"></script>
     </head>
+    <?php
+    include "../userside/navbar.php";
+    ?>
     <body>
-<?php
-include "navbar.php";
-?>
+        <h1>Give Feedback</h1>
+    </body>
 </html>

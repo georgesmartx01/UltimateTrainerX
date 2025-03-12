@@ -14,13 +14,13 @@
                 <h3>Social Media</h3>
                 <ul class="social-icons">
                     <!-- Facebook -->
-                    <li><a href="https://www.facebook.com/" target="_blank"><img src="../images/facebook.jpg" alt="Facebook"></a></li>
+                    <li><a href="https://www.facebook.com/" target="_blank"><img src="../CSS/images/facebook.jpg" alt="Facebook"></a></li>
                     
                     <!-- X (formerly Twitter) -->
-                    <li><a href="https://x.com/i/flow/login" target="_blank"><img src="../images/twitterx.png" alt="Twitter (X)"></a></li>
+                    <li><a href="https://x.com/i/flow/login" target="_blank"><img src="../CSS/images/twitterx.png" alt="Twitter (X)"></a></li>
                     
                     <!-- Instagram -->
-                    <li><a href="https://www.instagram.com/accounts/login/" target="_blank"><img src="../images/instagram.png" alt="Instagram"></a></li>
+                    <li><a href="https://www.instagram.com/accounts/login/" target="_blank"><img src="../CSS/images/instagram.png" alt="Instagram"></a></li>
                 </ul>
                 <p>Connect with me on social media for updates and news!</p>
             </div>

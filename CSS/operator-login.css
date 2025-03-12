@@ -66,6 +66,12 @@
     top: 30%;
     transform: translate(50%);
     font-size: 20px;
+    color: darkslateblue;
+  }
+
+  .input-box .fa-eye-slash, .fa-eye {
+    right: 50px;
+    cursor: pointer;
   }
   
   .wrapper .remember-forgot {
@@ -81,12 +87,13 @@
   }
   
   .remember-forgot a {
-    color: auto;
+    color: blue;
+    font-weight: 600;
     text-decoration: none;
   }
   
   .remember-forgot a:hover {
-    text-decoration: underline;
+    color: slateblue;
   }
 
   button {
@@ -118,9 +125,9 @@
   }
   
   .register-link p a:hover {
-    text-decoration: underline;
+    color: slateblue;
   }
-  
+
   .login-methods p a {
     color: auto;
     text-decoration: none;
