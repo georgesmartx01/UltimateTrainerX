@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/sudoku.css">
-    <title>Steve's sudoku</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/brain-games/sudoku.css">
+    <title>Sudoku</title>
 </head>
 
-<body>
+<body class="flex-row">
     <div id="main__container">
         <div id="header__controls" class="flex-row">
             <span id="header__menu"><img src="images/3dots.svg" id="dotMenuSpan" ></span>
@@ -69,9 +69,10 @@
             <div id="selection__level" class="selection flex-row">
                 <span class="title">Level</span>
                 <div class="options">
-                    <Span data-level=0>Easy</Span>
-                    <Span data-level=1>Maybe</Span>
-                    <Span data-level=2>Evil</Span>
+                    <span data-level=0>Easy</span>
+                    <span data-level=1>Medium</span>
+                    <span data-level=2>Hard</span>
+                    <span data-level=3>Extreme</span>
                 </div>
             </div>
             <div id="start">start</div>
@@ -79,15 +80,14 @@
     </div>
 
 
-    <script src="../JavaScript/games/sudoku/global.js"></script>
-    <script src="../JavaScript/games/sudoku/combinations.js"></script>
-    <script src="../JavaScript/games/sudoku/validate.js"></script>
-    <script src="../JavaScript/games/sudoku/board.js"></script>
-    <script src="../JavaScript/games/sudoku/view.js"></script>
-    <script src="../JavaScript/games/sudoku/digger.js"></script>
-    <script src="../JavaScript/games/sudoku/userActions.js"></script>
-    <script src="../JavaScript/games/sudoku/solver.js"></script>
-    <script src="../JavaScript/games/sudoku/script.js"></script>
+    <script src="../JavaScript/brain-games/sudoku/global.js"></script>
+    <script src="../JavaScript/brain-games/sudoku/combinations.js"></script>
+    <script src="../JavaScript/brain-games/sudoku/validate.js"></script>
+    <script src="../JavaScript/brain-games/sudoku/board.js"></script>
+    <script src="../JavaScript/brain-games/sudoku/view.js"></script>
+    <script src="../JavaScript/brain-games/sudoku/digger.js"></script>
+    <script src="../JavaScript/brain-games/sudoku/user-actions.js"></script>
+    <script src="../JavaScript/brain-games/sudoku/solver.js"></script>
+    <script src="../JavaScript/brain-games/sudoku/sudoku.js"></script>
 </body>
-
 </html>

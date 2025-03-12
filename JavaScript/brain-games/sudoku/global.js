@@ -1,6 +1,6 @@
 let setLimits;
 let boardSize = 4;
-let level = 2; // 0 = Easy, 1 = Hard, 2 = Evil
+let level = 2; // 0 = Easy, 1 = Medium, 2 = Hard, 3 = Extreme
 let board, boxSize, isBoardValidate, solvedBoard, digger, questionBoard;
 let view, dotMenuButton,solverMenu,dotMenuDiv;
 let solver, solverStartButton,speedRangeButton, solverStopButton ,solverWatchButton;

@@ -35,9 +35,12 @@
                  
                    <!-- Link to Help page -->
                    <li><a href="../userside/help.php">Help</a></li>
+
+                   <!-- Link to Contact Me page -->
+                   <li><a href="../userside/contactme.php">Contact Me</a></li>
                  
-                   <!-- Link to About page -->
-                   <li><a href="../userside/about.php">About</a></li>
+                   <!-- Link to About Me page -->
+                   <li><a href="../userside/about.php">About Me</a></li>
                  
                    <!-- Quick settings icon, including link -->
                    <li class="icon-container">

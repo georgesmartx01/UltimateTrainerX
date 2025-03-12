@@ -2,7 +2,7 @@ let isFirstTime = true;
 let isFirstTime_dotMenu = true;
 let emptyItems;
 let keyPadItems;
-let user__level = [level, 'Evil'];
+let user__level = [level, 'Extreme'];
 let user__size = boardSize;
 
 function initActions() {

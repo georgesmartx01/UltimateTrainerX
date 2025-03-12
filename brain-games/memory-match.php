@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,8 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Memory Match</title>
-        <link rel="stylesheet" href="../CSS/memory-match.css"/>
-        <script src="../JavaScript/games/memory-match.js" defer></script>
+        <link rel="stylesheet" href="../CSS/navbar.css"/>
+        <link rel="stylesheet" href="../CSS/brain-games/memory-match.css"/>
+        <script src="../JavaScript/games/memory-match/memory-match.js" defer></script>
     </head>
 
     <?php
