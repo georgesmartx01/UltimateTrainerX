@@ -1,5 +1,5 @@
 <?php
-include('../userside/connectdb.php');
+include "../userside/connectdb.php";
 session_start();
 
 echo $_SESSION['User_ID'];
@@ -36,4 +36,5 @@ if (isset($_SESSION['User_ID'])) {
     <body>
         <h1>Give Feedback</h1>
     </body>
+    <?php include "../userside/footer.php" ?>
 </html>

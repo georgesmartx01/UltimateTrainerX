@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Brain Games</title>
-        <link rel="stylesheet" type="text/css" href="../CSS/navbar.css">
-        <link rel="stylesheet" type="text/css" href="../CSS/brain-games.css">
+        <link rel="stylesheet" type="text/css" href="../userside/CSS/navbar.css">
+        <link rel="stylesheet" type="text/css" href="../userside/CSS/brain-games.css">
         <script defer src="JavaScript/script.js"></script>
     </head>
     <?php
@@ -23,9 +23,9 @@
             <div class="column">
                 <div class="card">
                     <div class="container">
-                        <img src="../CSS/images/brain-games/sudoku/sudoku.jpg" alt="">
+                        <img src="../userside/CSS/images/brain-games/sudoku/sudoku.jpg" alt="">
                         <div class="middle">
-                            <button><a href="../brain-games/sudoku.php">Play</a></button>
+                            <button><a href="../userside/brain-games/sudoku.php">Play</a></button>
                         </div>
                     </div>
                     <br>
@@ -38,10 +38,10 @@
             <div class="column">
                 <div class="card">
                     <div class="container">
-                        <img src="../CSS/images/brain-games/memory-match/memory-match.png" alt="">
+                        <img src="../userside/CSS/images/brain-games/memory-match/memory-match.png" alt="">
                         
                         <div class="middle">
-                            <button><a href="../brain-games/memory-match.php">Play</a></button>
+                            <button><a href="../userside/brain-games/memory-match.php">Play</a></button>
                         </div>
                     </div>
                     <br>
@@ -54,10 +54,10 @@
             <div class="column">
                 <div class="card">
                     <div class="container">
-                        <img src="../CSS/images/brain-games/rock-paper-scissors/rock-paper-scissors.svg" alt="">
+                        <img src="../userside/CSS/images/brain-games/rock-paper-scissors/rock-paper-scissors.svg" alt="">
 
                         <div class="middle">
-                            <button><a href="../brain-games/rock-paper-scissors.php">Play</a></button>
+                            <button><a href="../userside/brain-games/rock-paper-scissors.php">Play</a></button>
                         </div>
                     </div>
                     <br>
@@ -70,10 +70,10 @@
             <div class="column">
                 <div class="card">
                     <div class="container">
-                        <img src="../CSS/images/brain-games/puzzle-math/puzzle-math.png" alt="">
+                        <img src="../userside/CSS/images/brain-games/puzzle-math/puzzle-math.png" alt="">
 
                         <div class="middle">
-                            <button><a href="../brain-games/puzzle-math.php">Play</a></button>
+                            <button><a href="../userside/brain-games/puzzle-math.php">Play</a></button>
                         </div>
                     </div>
                     <br>
@@ -86,10 +86,10 @@
             <div class="column">
                 <div class="card">
                     <div class="container">
-                        <img src="../CSS/images/brain-games/word-search/word-search.png" alt="">
+                        <img src="../userside/CSS/images/brain-games/word-search/word-search.png" alt="">
 
                         <div class="middle">
-                            <button><a href="../brain-games/word-search.php">Play</a></button>
+                            <button><a href="../userside/brain-games/word-search.php">Play</a></button>
                         </div>
                     </div>
                     <br>
@@ -99,7 +99,6 @@
                 </div>
             </div>
         </div>
-
-        <?php include "../userside/footer.php";?>
     </body>
+    <?php include "../userside/footer.php";?>
 </html>

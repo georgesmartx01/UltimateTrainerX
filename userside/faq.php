@@ -8,7 +8,7 @@ session_start();
     <head>
         <meta charset="UTF-8"/>
         <title>Frequently Asked Questions (FAQs)</title>
-        <link rel="stylesheet" type="text/css" href="../CSS/navbar.css">
+        <link rel="stylesheet" type="text/css" href="../userside/CSS/navbar.css">
         <script defer src="../JavaScript/main-script.js"></script>
     </head>
     <?php

@@ -87,4 +87,5 @@ if(isset($_GET['msg'])){
         }
     </script>
     </body>
+    <?php include "../userside/footer.php";?>
 </html

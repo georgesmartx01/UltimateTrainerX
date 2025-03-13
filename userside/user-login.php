@@ -1,5 +1,5 @@
 <?php 
-include('connectdb.php');
+include "../userside/connectdb.php";
 session_start();
 if(isset($_SESSION['username']) && isset($_SESSION['User_ID'])){
     header("Location: accountpage.php");
@@ -27,11 +27,11 @@ if(isset($_GET['msg'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login</title>
-    <link rel="stylesheet" type="text/css" href="../CSS/user-login.css">
-    <link rel="stylesheet" type="text/css" href="../CSS/navbar.css">
+    <link rel="stylesheet" type="text/css" href="../userside/CSS/user-login.css">
+    <link rel="stylesheet" type="text/css" href="../userside/CSS/navbar.css">
     <script defer src="JavaScript/main-script.js"></script>
 </head>
-<?php include "navbar.php"; ?>
+<?php include "../userside/navbar.php"; ?>
 <body>
     <div class="wrapper">
         <form>

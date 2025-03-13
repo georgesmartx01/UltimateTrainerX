@@ -1,7 +1,7 @@
 <?php
-include('connectdb.php');
+include "../userside/connectdb.php";
 session_start();
-include "navbar.php";
+include "../userside/navbar.php";
 
 if(isset($_POST['registerbtn'])) {
     $firstname = $_POST['firstname'];

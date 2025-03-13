@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Your Password</title>
-    <link rel="stylesheet" type="text/css" href="../CSS/forgot-password.css">
-    <link rel="stylesheet" type="text/css" href="../CSS/navbar.css">
-    <script defer src="JavaScript/main-script.js"></script>
+    <link rel="stylesheet" type="text/css" href="../userside/CSS/forgot-password.css">
+    <link rel="stylesheet" type="text/css" href="../userside/CSS/navbar.css">
+    <script defer src="../userside/JavaScript/main-script.js"></script>
 </head>
 <?php include "navbar.php"; ?>
 
@@ -49,5 +49,5 @@
         </form>
     </div>
 </body>
-
+<?php include "../userside/footer.php" ?>
 </html>

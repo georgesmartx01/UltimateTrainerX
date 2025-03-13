@@ -1,6 +1,6 @@
 <?php
 // Include database connection file
-include('connectdb.php');
+include "../userside/connectdb.php";
 
 // Start session
 session_start();
@@ -81,12 +81,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute()) {
             // Redirect back to the user account page after successful update
             $_SESSION['update_success'] = "User details updated successfully.";
-            header("Location: aaccountpage.php");
+            header("Location: accountpage.php");
             exit();
         } else {
             // Handle error
             $_SESSION['update_error'] = "Error updating user details.";
-            header("Location: aaccountpage.php");
+            header("Location: accountpage.php");
             exit();
         }
     }

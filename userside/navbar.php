@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="../CSS/navbar.css">
+		<link rel="stylesheet" href="../userside/CSS/navbar.css">
         <script src="../JavaScript/main-script.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	</head>
@@ -12,7 +12,7 @@
         <nav>
             <ul class="nav_list">
                 <!-- UlimateTrainerX logo -->
-                <li class="logo"><img src="../CSS/images/logo/UltimateTrainerX-logo.png"></li>
+                <li class="logo"><img src="../userside/CSS/images/logo/UltimateTrainerX-logo.png"></li>
 
                 <div class="nav_links">
                    <!-- Link to Home page -->
@@ -40,7 +40,7 @@
                    <li><a href="../userside/contactme.php">Contact Me</a></li>
                  
                    <!-- Link to About Me page -->
-                   <li><a href="../userside/about.php">About Me</a></li>
+                   <li><a href="../userside/aboutme.php">About Me</a></li>
                  
                    <!-- Quick settings icon, including link -->
                    <li class="icon-container">
