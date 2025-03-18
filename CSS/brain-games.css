@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+h1, .caption {
+    margin: 20px;
+}
+
+/* Float four columns side by side */
+.column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+    margin-bottom: 30px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {
+    margin: 0 10px;
+    margin-bottom: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+
+/* Style the game cards */
+.card {
+    width: 415px; /* Set a fixed width */
+    height: 410px; /* Set a fixed height */
+    display: table;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background: linear-gradient(135deg, blue, slateblue, darkslateblue, darkblue);
+    position: relative;
+    border-radius: 20px;
+}
+
+.card .container:hover img {
+    opacity: 0.3;
+}
+
+.card .container:hover .middle {
+    opacity: 1;
+}
+
+.middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+
+.middle button {
+    background: linear-gradient(blue, slateblue, darkslateblue, darkblue);
+    font-size: 16px;
+    padding: 16px 32px;
+    cursor: pointer;
+    border-radius: 15px;
+    opacity: 0.6;
+}
+
+.middle button a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+}
+
+.card img {
+    opacity: 1;
+    display: table;
+    width: 380px;
+    height: 300px;
+    object-fit: cover;
+    transition: .2s ease;
+    backface-visibility: hidden;
+    max-width: 100%;
+}
