@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Footer</title>
-    <link rel="stylesheet" href="../userside/CSS/footer.css">
+    <link rel="stylesheet" href="CSS/footer.css">
 </head>
 
 <body>
@@ -14,13 +14,13 @@
                 <h3>Social Media</h3>
                 <ul class="social-icons">
                     <!-- Facebook -->
-                    <li><a href="https://www.facebook.com/" target="_blank"><img src="../userside/CSS/images/social media/facebook.jpg" alt="Facebook"></a></li>
+                    <li><a href="https://www.facebook.com/" target="_blank"><img src="CSS/images/social media/facebook.jpg" alt="Facebook"></a></li>
                     
                     <!-- X (formerly Twitter) -->
-                    <li><a href="https://x.com/i/flow/login" target="_blank"><img src="../userside/CSS/images/social media/twitterx.png" alt="Twitter (X)"></a></li>
+                    <li><a href="https://x.com/i/flow/login" target="_blank"><img src="CSS/images/social media/twitterx.png" alt="Twitter (X)"></a></li>
                     
                     <!-- Instagram -->
-                    <li><a href="https://www.instagram.com/accounts/login/" target="_blank"><img src="../userside/CSS/images/social media/instagram.png" alt="Instagram"></a></li>
+                    <li><a href="https://www.instagram.com/accounts/login/" target="_blank"><img src="CSS/images/social media/instagram.png" alt="Instagram"></a></li>
                 </ul>
                 <p>Connect with me on social media for updates and news!</p>
             </div>

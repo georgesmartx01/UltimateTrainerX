@@ -1,6 +1,6 @@
 <?php
 // Include database connection file
-include "../userside/connectdb.php";
+include "connectdb.php";
 
 // Start session
 session_start();

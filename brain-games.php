@@ -3,14 +3,14 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Brain Games</title>
-        <link rel="stylesheet" type="text/css" href="../userside/CSS/navbar.css">
-        <link rel="stylesheet" type="text/css" href="../userside/CSS/brain-games.css">
+        <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
+        <link rel="stylesheet" type="text/css" href="CSS/brain-games.css">
         <script defer src="JavaScript/script.js"></script>
     </head>
     <?php
-    include "../userside/connectdb.php";
+    include "connectdb.php";
     session_start();
-    include "../userside/navbar.php";
+    include "navbar.php";
     ?>
 
     <body>
@@ -23,9 +23,9 @@
             <div class="column">
                 <div class="card">
                     <div class="container">
-                        <img src="../userside/CSS/images/brain-games/sudoku/sudoku.jpg" alt="Sudoku">
+                        <img src="CSS/images/brain-games/sudoku/sudoku.jpg" alt="Sudoku">
                         <div class="middle">
-                            <button><a href="../userside/brain-games/sudoku.php">Play</a></button>
+                            <button><a href="brain-games/sudoku.php">Play</a></button>
                         </div>
                     </div>
                     <br>
@@ -38,10 +38,10 @@
             <div class="column">
                 <div class="card">
                     <div class="container">
-                        <img src="../userside/CSS/images/brain-games/memory-match/memory-match.png" alt="Memory Match">
+                        <img src="CSS/images/brain-games/memory-match/memory-match.png" alt="Memory Match">
                         
                         <div class="middle">
-                            <button><a href="../userside/brain-games/memory-match.php">Play</a></button>
+                            <button><a href="brain-games/memory-match.php">Play</a></button>
                         </div>
                     </div>
                     <br>
@@ -54,10 +54,10 @@
             <div class="column">
                 <div class="card">
                     <div class="container">
-                        <img src="../userside/CSS/images/brain-games/rock-paper-scissors/rock-paper-scissors.svg" alt="Rock Paper Scissors">
+                        <img src="CSS/images/brain-games/rock-paper-scissors/rock-paper-scissors.svg" alt="Rock Paper Scissors">
 
                         <div class="middle">
-                            <button><a href="../userside/brain-games/rock-paper-scissors.php">Play</a></button>
+                            <button><a href="brain-games/rock-paper-scissors.php">Play</a></button>
                         </div>
                     </div>
                     <br>
@@ -70,10 +70,10 @@
             <div class="column">
                 <div class="card">
                     <div class="container">
-                        <img src="../userside/CSS/images/brain-games/puzzle-math/puzzle-math.png" alt="Puzzle Math">
+                        <img src="CSS/images/brain-games/puzzle-math/puzzle-math.png" alt="Puzzle Math">
 
                         <div class="middle">
-                            <button><a href="../userside/brain-games/puzzle-math.php">Play</a></button>
+                            <button><a href="brain-games/puzzle-math.php">Play</a></button>
                         </div>
                     </div>
                     <br>
@@ -86,10 +86,10 @@
             <div class="column">
                 <div class="card">
                     <div class="container">
-                        <img src="../userside/CSS/images/brain-games/word-search/word-search.png" alt="Word Search">
+                        <img src="CSS/images/brain-games/word-search/word-search.png" alt="Word Search">
 
                         <div class="middle">
-                            <button><a href="../userside/brain-games/word-search.php">Play</a></button>
+                            <button><a href="brain-games/word-search.php">Play</a></button>
                         </div>
                     </div>
                     <br>
@@ -102,10 +102,10 @@
             <div class="column">
                 <div class="card">
                     <div class="container">
-                        <img src="../userside/CSS/images/brain-games/hangman/" alt="Hangman">
+                        <img src="CSS/images/brain-games/hangman/hagnman.png" alt="Hangman">
 
                         <div class="middle">
-                            <button><a href="../userside/brain-games/hangman.php">Play</a></button>
+                            <button><a href="brain-games/hangman.php">Play</a></button>
                         </div>
                     </div>
                     <br>

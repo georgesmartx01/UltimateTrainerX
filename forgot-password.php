@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Your Password</title>
-    <link rel="stylesheet" type="text/css" href="../userside/CSS/forgot-password.css">
-    <link rel="stylesheet" type="text/css" href="../userside/CSS/navbar.css">
-    <script defer src="../userside/JavaScript/main-script.js"></script>
+    <link rel="stylesheet" type="text/css" href="CSS/forgot-password.css">
+    <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
+    <script defer src="JavaScript/main-script.js"></script>
 </head>
 <?php include "navbar.php"; ?>
 
@@ -21,11 +21,6 @@
             <p>1. For the user types, once you select on appropriate user type, the form changes to an appropriate layout to reduce likely errors for businesses/operators providing the same information as end-users.</p>
             <p>2. Make sure you write your password on a piece of paper or save it in a password manager installed on your device, so you don't forget it!</p>
             <label for="user-type">Choose the appropriate user type:</label>
-            <select name="user-types">
-                <option value="end-user">End User</option>
-                <option value="business">Business</option>
-                <option value="operator">Operator</option>
-            </select>
             </div>
             
             <div class="input-box">
@@ -43,11 +38,8 @@
             <div class="register-link">
                 <p>Don't have an account?<a href="register-user.php"> Register</a></p>
             </div>
-
-            <button type="submit" class="login-business-btn">Login as business</button>
-            <button type="submit" class="login-operator-btn">Login as operator</button>
         </form>
     </div>
 </body>
-<?php include "../userside/footer.php" ?>
+<?php include "footer.php" ?>
 </html>
