@@ -53,20 +53,53 @@ if(isset($_POST['registerbtn'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footer</title>
-    <link rel="stylesheet" href="CSS/footer.css">
-    <!-- Font Awesome Link-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="CSS/navbar.css">
+    <link rel="stylesheet" href="CSS/register-user.css">
+    <link rel="stylesheet" href="CSS/password-generator.css">
 </head>
-
-<div id="createUserPopup" class="popup">
-        <form method="post" action="registeruser.php">
-            <h2>User Registration Form</h2>
-            <input type="text" placeholder="Username" name="new_username" required><br<><br>
-            <input type="password" placeholder="Password" name="new_password" required><br<><br>
-            <input type="text" placeholder="First Name" name="firstname" required><br<><br>
-            <input type="text" placeholder="Last Name" name="lastname" required><br<><br>
-            <button type="submit" name="registerbtn">Create</button>
-            <button type="button" onclick="cancelRegisterPopup()">Cancel</button>
+<body>
+    <!-- Registration Form -->
+    <div class="wrapper">
+        <form action="register-user.php" method="post" onsubmit="return validatePasswordMatch()">
+            <h1>Registration Form</h1>
+            <div class="input-box">
+                <label>First Name</label>
+                <input type="text" name="firstname" placeholder="First Name" required>
+            </div>
+            <br>
+            <div class="input-box">
+                <label>Last Name</label>
+                <input type="text" name="lastname" placeholder="Last Name" required>
+            </div>
+            <br>
+            <div class="input-box">
+                <label>Username</label>
+                <input type="text" placeholder="Username" name="new_username" required>
+            </div>
+            <br>
+            <div class="input-box">
+                <label>Password</label>
+                <input type="password" placeholder="Enter your password" name="pass" id="regPassInput" value="Password" required>
+                <i class="fa-solid fa-eye-slash" id="toggleRegPassword" onclick="togglePasswordVisibility(event, 'regPassInput')"></i>
+            </div>
+            <br>
+            <div class="input-box">
+                <label>Confirm Password</label>
+                <input type="password" placeholder="Confirm your password" name="confirm-pass" id="regConfirmInput" value="Confirm" required>
+                <i class="fa-solid fa-eye-slash" id="toggleRegConfirmPassword" onclick="togglePasswordVisibility(event, 'regConfirmInput')"></i>
+            </div>
+            <br>
+            <button id="generate-pass-btn">Generate Password</button>
+            <button class="register-btn">Register</button>
+            <p>Note: You are not required to add a phone number or e-mail account to use the cognitive training tool.</p>
+            <p>Only limited amount of information from you is required to provide the service.</p>
         </form>
-</div>
+    </div>
+
+    <?php include "password-generator.php" ?>
+
+    <script src="JavaScript/toggle-password-visibility/toggle-password-visibility.js"></script>
+    <script src="JavaScript/password-generator/password-generator.js"></script>
+</body>
+</html>

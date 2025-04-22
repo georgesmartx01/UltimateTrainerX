@@ -11,14 +11,23 @@
         <nav>
             <ul class="nav_list">
                 <!-- UlimateTrainerX logo -->
-                <li class="logo"><img src="CSS/images/logo/UltimateTrainerX-logo.png"></li>
+                <?php 
+                $currentDirectory = basename(dirname($_SERVER['PHP_SELF'])); // Get current directory
+                $isBrainGames = $currentDirectory === 'brain-games'; // Get the brain-games directory
+                $isAccessibility = $currentDirectory === 'accessibility'; // Get the accessibility directory
 
+                if ($currentDirectory === 'brain-games' || $currentDirectory === 'accessibility') {
+                    echo '<li class="logo"><img src="../CSS/images/logo/UltimateTrainerX-logo.png"></li>';
+                } else {
+                    echo '<li class="logo"><img src="CSS/images/logo/UltimateTrainerX-logo.png"></li>';
+                }
+                ?>
                 <div class="nav_links">
                    <!-- Link to Home page -->
                    <li><a class="active" href="homepage.php">Home</a></li>
 
                    <!-- Link to Brain Games page -->
-                   <li><a class="active" href="brain-games.php">Games</a></li>
+                   <li><a href="brain-games.php">Games</a></li>
 
                    <!-- Link to FAQ (Frequently Asked Questions) page -->
                    <li><a href="faq.php">FAQ</a></li>                    
@@ -36,10 +45,25 @@
                    <li><a href="aboutme.php">About Us</a></li>
                  
                    <!-- Quick settings icon, including link -->
-                   <li class="icon-container">
-                       <i class="fa-solid fa-gear"></i>
-                       <div class="icon-description">Settings</div>
-                   </li>
+                    <li class="icon-container">
+                        <button id="settings-icon"><i class="fa-solid fa-gear"></i></button>
+                        <div class="settings-popover">
+                            <h3>Quick Settings</h3>
+                            <label>
+                                <input type="checkbox" name id="dark-mode-toggle"> Enable Dark Mode
+                            </label>
+
+                            <label>
+                                <p>Font Size</p>
+                                <div class="font-slider">
+                                    
+                                </div>
+                            </label>
+
+                            <p id="show-more"><a href="">Show more setings</a></p>
+                        </div>
+                        <div class="icon-description">Settings</div>
+                    </li>
 
                     <?php
                     // Set current page as prev_page
@@ -68,20 +92,7 @@
                 </div>
             </ul>
         </nav>
-        
-        <script>
-        const navLinks = document.querySelectorAll('.nav_links li');
-        
-        if (navLinks.length) {
-            navLinks.forEach((navLink) => {
-                navLink.addEventListener('click', (e) => {
-                    navLinks.forEach((navLink) => {
-                        navLink.classList.remove('active');
-                    });
-                    navLink.classList.add('active');
-                });
-            });
-        }
-        </script>
+
+        <script src="JavaScript/navbar/nav-behaviour.js"></script>
 </body>
 </html>

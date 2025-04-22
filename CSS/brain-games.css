@@ -23,6 +23,8 @@ h1, .caption {
 
 /* Remove extra left and right margins, due to padding */
 .row {
+    display: flex;
+    flex-wrap: wrap;
     margin: 0 10px;
     margin-bottom: 20px;
 }
@@ -35,7 +37,14 @@ h1, .caption {
 }
 
 /* Responsive columns */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 960px) {
+    .column {
+        width: 50%;
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
     .column {
         width: 100%;
         display: block;
@@ -59,6 +68,11 @@ h1, .caption {
     border-radius: 20px;
 }
 
+.card:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0,2);
+    transform: scale(1.03);
+}
+
 .card .container:hover img {
     opacity: 0.3;
 }
@@ -76,19 +90,28 @@ h1, .caption {
     transition: opacity .2s ease;
 }
 
+.middle p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 .middle button {
     background: linear-gradient(blue, slateblue, darkslateblue, darkblue);
     font-size: 16px;
-    padding: 16px 32px;
+    padding: 12px 32px;
     cursor: pointer;
     border-radius: 15px;
-    opacity: 0.6;
+    opacity: 0.9;
 }
 
 .middle button a {
     text-decoration: none;
     color: white;
     font-weight: 600;
+}
+
+.middle button:hover {
+    background: mediumslateblue;
 }
 
 .card img {

@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/navbar.css">
+    <link rel="stylesheet" href="../CSS/brain-games/hangman.css">
     <title>Hangman</title>
 </head>
-<body>
-    <div class="game-container">
-        <span class="wrong-guesses">Wrong Guesses :
-            <span class="wrong-guess">0</span> of
-            <span class="max-wrong">2</span>
-        </span>
-        <button class="reset-btn">Reset</button>
-    </div>
 
-    <script src="../JavaScript/"></script>
+<?php
+include "../navbar.php";
+?>
+
+<body>
+    <div id="game-container">
+        <canvas id="hangman-canvas"></canvas>
+        <div id="word-container"></div>
+        <div id="message"></div>
+        <div id="letters-container"></div>
+        <button id="new-game">New Game</button>
+    </div>
+    <script src="../JavaScript/brain-games/hangman/hangman.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php 
-include "connectdb.php";
+
 session_start();
 if(isset($_SESSION['username']) && isset($_SESSION['User_ID'])){
     header("Location: accountpage.php");
@@ -29,22 +29,24 @@ if(isset($_GET['msg'])){
     <title>User Login</title>
     <link rel="stylesheet" type="text/css" href="CSS/user-login.css">
     <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
-    <script defer src="JavaScript/main-script.js"></script>
+    <link rel="stylesheet" href="CSS/password-generator.css">
 </head>
 <?php include "navbar.php"; ?>
 <body>
+    <!-- Login Form -->
     <div class="wrapper">
         <form>
-            <h1>User Login</h1>
+            <br>
+            <h1>Login Form</h1>
             <div class="input-box">
                 <input type="text" placeholder="Username" required>
                 <i class="fa fa-user"></i>
             </div>
             
             <div class="input-box">
-                <input type="password" value="Password" id="userInput" required>
+                <input type="password" placeholder="Enter your password" name="pass" value="Password" id="loginPassInput" required>
                 <i class="fa-solid fa-lock"></i>
-                <i class="fa-solid fa-eye-slash" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+                <i class="fa-solid fa-eye-slash" id="toggleLoginPassword" onclick="togglePasswordVisibility(event, 'loginPassInput')"></i>
             </div>
 
             <div class="remember-forgot">
@@ -54,37 +56,17 @@ if(isset($_GET['msg'])){
                 </label>
                 <a href="forgot-password.php">Forgot Password</a>
             </div>
-    
+            <button id="generate-pass-btn">Generate Password</button>
             <button type="submit" class="login-btn">Login</button>
-    
+
             <div class="register-link">
-                <p>Don't have an account? <a href="register-user.php">Register</a></p>
-            </div>          
+                <p>Don't have an account? <a href="register-user.php">Click to register</a></p>
+            </div>       
         </form>
     </div>
 
-    <script>
-        /**
-         * h
-         */
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('userInput');
-            const togglePassword = document.getElementById('togglePassword');
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            
-            togglePassword.classList.toggle('fa-eye-slash');
-            togglePassword.classList.toggle('fa-eye');
-            
-            if (togglePassword.classList.contains('fa-eye')) {
-                togglePassword.style.right = '50px';
-            } else if (togglePassword.classList.contains('fa-eye-slash')) {
-                togglePassword.style.right = '50px';
-            } else {
-            }
-        }
-    </script>
-    
+    <?php include "password-generator.php"; ?>
+
     <?php 
     if(isset($error)) {
         echo "<p style='color:red;'>$error</p>";
@@ -117,7 +99,7 @@ if(isset($_GET['msg'])){
                     header("Location: accountpage.php");
                 }
             } else {
-                if($passwordSubmit === $user['Password']) {
+                if($passwordSubmit == $user['Password']) {
                     $_SESSION['username'] = $user['Username'];
                     $_SESSION['User_ID'] = $user['User_ID'];
                     
@@ -143,5 +125,7 @@ if(isset($_GET['msg'])){
         }
     }
     ?>
+    <script src="JavaScript/password-generator/password-generator.js"></script>
+    <script src="JavaScript/toggle-password-visibility/toggle-password-visibility.js"></script>
 </body>
 </html>

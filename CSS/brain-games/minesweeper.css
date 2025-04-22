@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    text-align: center;
+    margin: 0;
+    padding: 0; 
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+h1 {
+    color: blue;
+    margin-bottom: 20px;
+}
+
+#controls {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#controls label {
+    font-size: 17px;
+}
+
+
+#minefield {
+    display: inline-block;
+}
+
+#level {
+    box-shadow: 0 10px 25px rgba(0, 17, 255, 0.7);
+    padding: 4px 6px;
+    background: darkblue;
+    color: white;
+    font-size: 16px;
+}
+
+#level option {
+    color: white;
+    font-size: 16px;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    border: 2px solid blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: darkslategrey;
+    font-weight: bold;
+    user-select: none;
+    transition: background-color 0.2s;
+    font-size: 24px;
+}
+
+.cell.revealed {
+    background-color: #ddd;
+    cursor: default;
+}
+
+.cell.mine {
+    background-color: red;
+    color: white;
+}
+
+.cell.incorrect-flag {
+    background-color: orange;
+}
+
+.cell.flagged {
+    background-color: yellow;
+}
+
+.cell.highlighted {
+    background-color: greenyellow;
+}
+
+#popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -90%);
+    background-color: midnightblue;
+    border: 2px solid slateblue;
+    padding: 20px;
+    box-shadow: 0 0 25px rgba(0, 17, 255, 0.7);
+    z-index: 1000;
+}
+
+#popup-content {
+    text-align: center;
+}
+
+#popup-message {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+#restart-btn {
+    background-color: slateblue;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: white;
+}
+
+#restart-btn:hover {
+    background-color: mediumslateblue;
+}
+
+.cell[data-mines="1"] {
+    color: blue;
+}
+
+.cell[data-mines="2"] {
+    color: green;
+}
+
+.cell[data-mines="3"] {
+    color: red;
+}
+
+.cell[data-mines="4"] {
+    color: darkblue;
+}
+
+.cell[data-mines="5"] {
+    color: darkred;
+}
+
+.cell[data-mines="6"] {
+    color: cyan;
+}
+
+.cell[data-mines="7"] {
+    color: orange;
+}
+
+.cell[data-mines="8"] {
+    color: purple;
+}

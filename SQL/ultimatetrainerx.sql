@@ -8,7 +8,7 @@ CREATE TABLE `users` (
     PRIMARY KEY (`user_ID`)
 )
 
-INSERT INTO `users` (`User_ID`, `Username`, `Password`, `First_Name`, `Second_Name`, `Last_Name`, `Address_User`) VALUES
+INSERT INTO `users` (`User_ID`, `Username`, `Password`, `First_Name`, `Second_Name`, `Last_Name`) VALUES
 (1, 'john_doe', '$2y$10$OP/4IcTxsnm74SLuzZwkcumFeFd8X8.zDTyFt94Td06fl6nn914Se', 'John', 'Michael', 'Doe'),
 -- Password: Password123!
 (2, 'jane_smith', '$2y$10$Ry5UeKbdjvE3fyxBM6gpWuNh4y7g2e3xzkc8nOIEX20sWd4foHsLS', 'Jane', 'Elizabeth', 'Smith'),
@@ -31,37 +31,18 @@ INSERT INTO `users` (`User_ID`, `Username`, `Password`, `First_Name`, `Second_Na
 -- Password: PassWord106%
 (11, 'daniel_cox', '$2y$10$W8531hrY4FwlpvVIM.4v2Ortzh16wdP24kcbTYBEnL7gxx3IDPSxi', 'Daniel', 'Roberts', 'Cox');
 
-CREATE TABLE `employees` (
-    `Employee_ID` int(11) NOT NULL AUTO_INCREMENT,
-    `First_Name` varchar(255) DEFAULT NULL,
-    `Last_Name` varchar(255) DEFAULT NULL,
-    `Password` varchar(255) DEFAULT NULL,
-    `Employee_Email` varchar(255) DEFAULT NULL,
-    PRIMARY KEY(`Employee_ID`)
-)
-
-INSERT INTO `employees` (`employee_id`, `LastName`, `FirstName`, `password`, `employee_email`) VALUES
-(1, 'Dawood', 'Husein', 'Password123!', 'h.dawood1360@gmail.com'),
-(2, 'man', 'Husein', 'Password123!', 'h.dawood1360@gmail.net'),
-(3, 'test', 'iron', 'Password123!', 'h.dawood1360@gmail.biz'),
-(4, 'Giakos', 'Alexandros', '$2y$10$eR7OhEK9veJMVsavFDReW.rEtpZDNLRIb.obKNCbjOaoIDA/4PvGK', 'alex123@gmail.com'),
-(5, 'sample', 'Alexandros', '$2y$10$75nd547hiuYD7v4Vos8vU.hxj/2AIXNh3sbdvh6TacRZZ9ZguGiPC', 'sample@aston.com'),
-(6, 'account', 'sample ', '$2y$10$NgvVzdsvf66N7Ks/10DqHemf6A5QZyQMbrUQwmkV8/4J3bvOvV5LW', 'sample@sample.com');
-
 CREATE TABLE `reviews` (
   `Review_ID` int(11) NOT NULL AUTO_INCREMENT,
   `User_ID` int(11) NOT NULL,
-  `Item_ID` int(11) NOT NULL,
   `Rating` int(11) NOT NULL,
   `Description` VARCHAR(255) DEFAULT NULL,
   `Created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`Review_ID`),
   FOREIGN KEY (`User_ID`) REFERENCES `users`(`User_ID`),
-  FOREIGN KEY (`Item_ID`) REFERENCES `item`(`Item_ID`),
   CONSTRAINT `chk_rating_range` CHECK (`Rating` >= 0 AND `Rating` <= 5)
 )
 
-INSERT INTO `reviews` (`Review_ID`, `User_ID`, `Item_ID`, `Rating`, `Description`)
+INSERT INTO `reviews` (`Review_ID`, `User_ID`, `Rating`, `Description`)
 VALUES
 (1, 1, 1, 1, 'I give this product 1 star'),
 (2, 2, 3, 3, 'I give this product 3 star'),
@@ -72,7 +53,7 @@ VALUES
 (7, 7, 7, 5, 'I give this product 5 star'),
 (8, 8, 1, 5, 'I give this product 5 star');
 
-CREATE TABLE contactme (
+CREATE TABLE contactus (
     `ContactMe_ID` INT(11) NOT NULL AUTO_INCREMENT,
     `Name` VARCHAR(255) NOT NULL,
     `Email` VARCHAR(255) NOT NULL,

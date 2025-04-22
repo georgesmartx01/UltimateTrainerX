@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+h1 {
+    font-size: 50px;
+    margin-bottom: 50px;
+}
+
+#game-canvas {
+    border: 3px solid blue;
+    border-radius: 10px;
+}
+
+#score-board {
+    display: flex;
+    justify-content: space-between;
+    width: 405px;
+    padding: 10px;
+    border: 3px solid blue;
+    border-radius: 10px;
+    background-color: rgb(23, 20, 66);
+}
+
+#score-board #score, #best-score {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.neon-text {
+    color: #fff;
+}
+
+#start-btn, #restart-btn {
+    background-color: transparent;
+    color: blue;
+    border: 2px solid blue;
+    padding: 10px 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+    font-weight: bold;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+#start-btn:hover, #restart-btn:hover {
+    background-color: darkblue;
+    color: white;
+}
+
+#game-over-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    background-color: rgb(18, 16, 43);
+    padding: 40px;
+    border: 3px solid blue;
+    text-align: center;
+    border-radius: 10px;
+}
+
+#game-over-popup h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+#game-over-popup p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}

@@ -20,8 +20,7 @@ function checkScores() {
             console.log("Game has ended");
             $('#equation').tooltip('show');
             document.getElementById("equation").innerHTML = ("Final Score: " + score + "/10");
-        }
-        else {
+        } else {
             // Play More Rounds
             gameCountDown();
         }
