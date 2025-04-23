@@ -9,7 +9,7 @@
         <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
         <!-- Font Awesome Link-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
-        ntegrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
 
@@ -24,14 +24,16 @@
         <div class="container">
             <!-- Home Caption -->
             <section class="home-caption">
-                <h1>Unlock Your Brain's True Potential Today!</h1>
-                <p>Monitor your cognitive performance in real time.</p>
+                <h1>Unlock Your Brain's True Potential!</h1>
+                <p>Challenging your brain is important, which is why this cognitive tool helps you improve literacy, problem-solving, memory and more.</p>
+                <p>You should complement the time spent on this tool with other aspects of your life, so you can maximise your cognitive performance.</p>
             </section>
 
             <!-- Performance Monitoring -->
             <section class="perf-mon">
                 <h1>Monitor Your Brain's Cognitive Performance and Progress!</h1>
                 <p>Get real-time insights with detailed performance metrics and personalised feedback.</p>
+                <p>Our performance measurement system gives you additional information about strengths, weaknesses</p>
             </section>
 
             <!-- Benefits -->
@@ -56,13 +58,15 @@
                     there are other ways to challenge your brain. 
                 </p>
                 <p>These include:</p>
-                <p>1. Daily exercise</p>
-                <p>2. Taking regular breaks from screens and take care of yourself</p>
-                <p>3. Spending time with your loved ones (family and friends)</p>
-                <p>4. Eat a healthy diet</p>
-                <p>5. Learn a new hobby</p>
-                <p>6. Listening to music</p>
-                <p>7. Be realistic</p>
+                <p>1. Daily exercise 🏃‍♀️</p>
+                <p>2. Taking regular breaks from screens and take care of yourself 🌿🥤📖</p>
+                <p>3. Spending time with your loved ones (family and friends) 👪</p>
+                <p>4. Eat a healthy diet 🍎🥦</p>
+                <p>5. Learn a new hobby 🎨📚</p>
+                <p>6. Listening to music 🎶</p>
+                <p>7. Be optimistic</p>
+                <p>Remember: challenging your brain takes time, so patience is key and don't give up!</p>
+                <p>You can do this!</p>
             </section> 
 
             <!-- Accessibility -->
