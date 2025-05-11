@@ -21,5 +21,6 @@ include "../navbar.php";
         <button id="new-game">New Game</button>
     </div>
     <script src="../JavaScript/brain-games/hangman/hangman.js"></script>
+    <script src="../JavaScript/navbar/nav-behaviour.js"></script>
 </body>
 </html>

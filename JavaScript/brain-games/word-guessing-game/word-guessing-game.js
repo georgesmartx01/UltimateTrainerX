@@ -1,8 +1,11 @@
 /**
- * Word list categorised by difficulty level.
- * Each word has an associated hint to help players guess.
+ * Word list categorised by difficulty level (easy, medium and hard).
+ * Each word has an associated hint to help players guess the word.
  */
 const words = {
+    /**
+     * Easy words
+     */
     easy: [
         {word: "apple", hint: "A fruit"},
         {word: "cat", hint: "A small pet"},
@@ -56,6 +59,9 @@ const words = {
         {word: "window", hint: "An opening in a wall that lets in light and air"},
     ],
 
+        /**
+     * Medium words (intermediate)
+     */
     medium: [
         {word: "giraffe", hint: "Tall animal with a long neck"},
         {word: "computer", hint: "Used for computing tasks"},
@@ -109,6 +115,9 @@ const words = {
         {word: "blueprint", hint: "A detailed plan or design used for building structures"}
     ],
 
+    /**
+     * Hard words
+     */
     hard: [
         {word: "entrepreneur", hint: "A business person"},
         {word: "metamorphosis", hint: "Transformation"},
@@ -170,13 +179,18 @@ const words = {
 let currentWord = "";
 
 /**
+ * Track correctly guessed words
+ */
+let guessedWords = [];
+
+/**
  * Tracks the player's score.
  * Increments when the player correctly guesses a word.
  */
 let score = 0;
 
 /**
- * Counts the number of attemps the player has made.
+ * Counts the number of attempts the player has made.
  * This helps in limiting the number of guesses before revealing the answer.
  */
 let attempts = 0;
@@ -191,6 +205,9 @@ document.getElementById("start-btn").addEventListener("click", startGame);
 document.getElementById("guess-btn").addEventListener("click", checkGuess);
 document.getElementById("next-btn").addEventListener("click", loadNextWord);
 
+/**
+ * 
+ */
 function startGame() {
     score = 0;
     usedWords = [];
@@ -200,6 +217,10 @@ function startGame() {
     document.getElementById("game").classList.remove("hidden");
 }
 
+/**
+ * 
+ * @returns 
+ */
 function loadNextWord() {
     const difficulty = document.getElementById("difficulty").value;
     const selectedWords = words[difficulty];
@@ -232,15 +253,38 @@ function loadNextWord() {
     
 }
 
+/**
+ * 
+ */
 function checkGuess() {
     const userGuess = document.getElementById("user-input").value.toLowerCase();
     attempts++;
 
+    if (guessedWords.includes(userGuess)) {
+        document.getElementById("message").style.color = "red";
+        document.getElementById("message").style.fontWeight = "bold";
+        document.getElementById("message").style.fontSize = "18px";
+        document.getElementById("message").innerText = "You've already guessed this word!";
+        return;
+    }
+
     if (userGuess === currentWord.word) {
         score += 10;
+        guessedWords.push(userGuess);
+        document.getElementById("message").style.color = "green";
+        document.getElementById("message").style.fontWeight = "bold";
+        document.getElementById("message").style.fontSize = "18px";
         document.getElementById("message").innerText = "Correct! Well done!";
         document.getElementById("next-btn").classList.remove("hidden");
+    } else if (userGuess === "") {
+        document.getElementById("message").style.color = "orange";
+        document.getElementById("message").style.fontWeight = "bold";
+        document.getElementById("message").style.fontSize = "18px";
+        document.getElementById("message").innerText = "Cannot leave guess empty! Please enter a guess!";
     } else {
+        document.getElementById("message").style.color = "red";
+        document.getElementById("message").style.fontWeight = "bold";
+        document.getElementById("message").style.fontSize = "18px";
         document.getElementById("message").innerText = `Wrong! Try again. Attempts: ${attempts}`;
     }
 

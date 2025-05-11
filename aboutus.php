@@ -17,8 +17,8 @@
         <br>
         <!-- Creating the initial header and brief description of the company-->
          <br><br>
-         <h1>About Me</h1>
-         <p>Welcome to UltimateTrainerX! Founded in 2025, I am pleased to say that this cognitive training tool is one of the most excellent options for catering towards various types of users to ensuring accessibility, large skillset, great improvements in overall, cognitive performance and wellbeing.</p>
+         <h1>About Us</h1>
+         <p>Welcome to UltimateTrainerX! Founded in 2025, we're pleased to say that this cognitive training tool is one of the most excellent options for catering towards various types of users to ensuring accessibility, large skillset, great improvements in overall, cognitive performance and wellbeing.</p>
          
     </body>
     <?php include "footer.php";?>

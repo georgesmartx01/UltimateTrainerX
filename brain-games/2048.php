@@ -31,5 +31,6 @@ include "../navbar.php"
         </div>
     </div>
     <script src="../JavaScript/brain-games/2048/2048.js"></script>
+    <script src="../JavaScript/navbar/nav-behaviour.js"></script>
 </body>
 </html>

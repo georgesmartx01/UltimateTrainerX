@@ -9,20 +9,25 @@
     </head>
     <?php include "../navbar.php"?>
     <body>
-        <h1 class="neon-text">Snake</h1>
+        <h1 class="snake-title">Snake Game</h1>
         <div id="score-board">
-            <span class="neon-text" id="score">Score: 0</span>
-            <span class="neon-text" id="best-score">Best Score: 0</span>
+            <span class="score-title">Score:
+                <span id="score">0</span>
+            </span>
+            <span class="best-score-title">Best Score:
+                <span id="best-score">0</span>
+            </span>
         </div>
-        <canvas id="game-canvas" width="400" height="400"></canvas>
+        <canvas id="game-canvas" width="600" height="660"></canvas>
         <button id="start-btn">Start Game</button>
 
         <div id="game-over-popup">
-            <h2 class="neon-text">Game Over</h2>
-            <p class="neon-text"><span id="final-score">Your Score: 0</span></p>
-            <button id="restart-btn">Restart</button>
+            <h2 class="game-over-title">Game Over</h2>
+            <p class="fscore-title">Your Score: <span id="final-score"></span></p>
+            <button id="restart-btn">Restart Game</button>
         </div>
 
         <script src="../JavaScript/brain-games/snake-game/snake-game.js"></script>
+        <script src="../JavaScript/navbar/nav-behaviour.js"></script>
     </body>
 </html>

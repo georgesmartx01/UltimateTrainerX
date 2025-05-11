@@ -1,281 +1,250 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // list all card options
-    const cardArray = [
-    // Fruits
-    {
-        name: 'apple',
-        img: '../images/fruits/apple.png'
-    },
+/**
+ * Array containing emojis for the game.
+ * These emojis are used for creating the matching pairs in the grid.
+ * Emojis are grouped into the following categories:
+ * 1. Smileys (1-20)
+ * 2. Gestures & Body Parts (21-30)
+ * 3. Clothing & Accessories (31-60)
+ * 4. Animals & Nature (61-256)
+ * 5. Food & Drink (257-374)
+ * 6. Activity & Sports (375-492)
+ * 7. Travel & Places (493-620)
+ * 8. Objects (621-765)
+ * 9. Flags (765-771)
+ */
+const emojis = [
+    '😃', '😍', '😇', '😜', '🤪', '🥰', '😎', '🤭', '😲', '🥱', '🥳', '🤩', '👋', '🧐', '😱', '😨', '🤑', '😴', '🤠', '🤐',
+    '👋', '💋', '👀', '🙏', '👁', '👈', '👍', '✊', '👏', '🤲', '👶', '👧', '🧒', '👦', '👩', '🧑', '👨', '👩‍🦱', '👩‍🦰', '👨‍🦰',
+    '👵', '👲', '🧓', '👴', '👳‍♂️', '🧕', '👮‍♀️', '👮', '👷‍♀️', '👷', '🧳', '🌂', '☂️', '🧵', '🧶', '👓', '🕶', '🥽', '🥼', '🦺',
+    '👔', '👕', '👖', '🧣', '🧤', '🧥', '🧦', '👗', '👘', '🥻', '🩳', '👚', '👛', '👜', '👝', '🎒', '👞', '👟', '🥾', '🥿', 
+    '👠', '👡', '🩰', '👒', '🎩', '🎓', '🧢', '⛑', '💄', '💼', '🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯',
+    '🦁', '🐮', '🐷', '🐽', '🐸', '🐵', '🙈', '🙉', '🙊', '🐒', '🐔', '🐧', '🐦', '🐤', '🐣', '🐥', '🦆', '🦅', '🦉', '🦇',
+    '🐺', '🐗', '🐴', '🦄', '🐝', '🐛', '🦋', '🐌', '🐞', '🐜', '🦟', '🦗', '🕷', '🕸', '🦂', '🐢', '🐍', '🦎', '🦖', '🦕',
+    '🐙', '🦑', '🦐', '🦞', '🦀', '🐡', '🐠', '🐟', '🐬', '🐳', '🐋', '🦈', '🐊', '🐅', '🐆', '🦓', '🦍', '🦧', '🐘', '🦛',
+    '🦏', '🐪', '🐫', '🦒', '🦘', '🐃', '🐂', '🐄', '🐎', '🐖', '🐏', '🐑', '🦙', '🐐', '🦌', '🐕', '🐩', '🦮', '🐕‍🦺', '🐈', 
+    '🐓', '🦃', '🦚', '🦜', '🦢', '🦩', '🕊', '🐇', '🦝', '🦨', '🦦', '🦥', '🦥', '🐁', '🐀', '🐿', '🦔', '🐉', '🐲', '🌵',
+    '🎄', '🌲', '🌳', '🌴', '🌱', '🌿', '☘️', '🍀', '🎍', '🎋', '🍃', '🍂', '🍁', '🍄', '🐚', '🌾', '💐', '🌷', '🌹', '🥀',
+    '🌺', '🌸', '🌼', '🌻', '🌞', '🌝', '🌛', '🌜', '🌚', '🌕', '🌖', '🌗', '🌘', '🌑', '🌒', '🌓', '🌔', '🌙', '🌎', '🌍',
+    '🌏', '🪐', '💫', '⭐️', '🌟', '✨', '⚡️', '☄️', '💥', '🔥', '🌪', '🌈', '☀️', '🌤', '🌥', '☁️', '🌦', '⛈', '🌩', '🌨', 
+    '❄️', '☃️', '⛄️', '🌬', '💨', '💧', '💦', '☔️', '☂️', '🌊','🍏', '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🍈', 
+    '🍒', '🍑', '🥭', '🍍', '🥥', '🥝', '🍅', '🍆', '🥑', '🥦', '🥬', '🥒', '🌶', '🌽', '🥕', '🧄', '🧅', '🥔', '🍠', '🥐', 
+    '🥯', '🍞', '🥖', '🥨', '🧀', '🥚', '🍳', '🧈', '🥞', '🧇', '🥓', '🥩', '🍗', '🍖', '🦴', '🌭', '🍔', '🍟', '🍕', '🥪', 
+    '🥙', '🧆', '🌮', '🌯', '🥗', '🥘', '🥫', '🍝', '🍜', '🍲', '🍛', '🍣', '🍱', '🥟', '🦪', '🍤', '🍙', '🍚', '🍘', '🍥', 
+    '🥠', '🥮', '🍢', '🍡', '🍧', '🍨', '🍦', '🥧', '🧁', '🍰', '🎂', '🍮', '🍭', '🍬', '🍫', '🍿', '🍩', '🍪', '🌰', '🥜', 
+    '🍯', '🥛', '🍼', '☕️', '🍵', '🧃', '🥤', '🍶', '🍺', '🍻', '🍷', '🥃', '🍸', '🍹', '🧉', '🍾', '🧊', '🥄', '🍴', '🥣', 
+    '🥡', '🥢', '🧂', '⚽️', '🏀', '🏈', '⚾️', '🥎', '🎾', '🏐', '🏉', '🥏', '🎱', '🪀', '🏓', '🏸', '🏒', '🏑', '🥍', '🏏', 
+    '🥅', '⛳️', '🪁', '🏹', '🎣', '🤿', '🥊', '🥋', '🎽', '🛹', '🛷', '⛸', '🥌', '🎿', '⛷', '🏂', '🪂', '🏋️‍♀️', '🏋️', '🏋️‍♂️', '🤼‍♀️', 
+    '🤼', '🤸‍♀️', '🤸‍♂️', '⛹️‍♀️', '⛹️', '🤺', '🤾‍♀️', '🤾', '🏌️‍♀️', '🏌️', '🏇', '🧘‍♀️', '🧘‍♂️', '🏄‍♀️', '🏄', '🏊‍♀️', '🚣‍♀️', '🚣', '🧗‍♀️', '🧗', '🚵‍♀️', '🚵',
+    '🚴‍♀️', '🚴', '🏆', '🥇', '🥈', '🥉', '🏅', '🎖', '🏵', '🎗', '🎫', '🎟', '🎪', '🤹', '🎭', '🩰', '🎨', '🎬', '🎤', '🎧',
+    '🎼', '🎹', '🥁', '🎷', '🎺', '🎸', '🪕', '🎻', '🎲', '♟', '🎯', '🎳', '🎮', '🎰', '🧩', '🚗', '🚕', '🚙', '🚌', '🚎', '🏎', 
+    '🚓', '🚑', '🚒', '🚐', '🚚', '🚛', '🚜', '🦯', '🦽', '🦼', '🛴', '🚲', '🛵', '🏍', '🛺', '🚨', '🚔', '🚍', '🚘', '🚖', 
+    '🚡', '🚠', '🚟', '🚃', '🚋', '🚞', '🚝', '🚄', '🚅', '🚈', '🚂', '🚆', '🚇', '🚊', '✈️', '🛫', '🛬', '🛩', '💺', '🛰', 
+    '🚀', '🛸', '🚁', '🛶', '⛵️', '🚤', '🛥', '🛳', '🛳', '⛴', '🚢', '⚓️', '⛽️', '🚧', '🚦', '🚥', '🚏', '🗺', '🗿', '🗽', '🗼', 
+    '🏰', '🏯', '🏟', '🎡', '🎢', '🎠', '⛲️', '⛱', '🏖', '🏝', '🏜', '🌋', '⛰', '🗻', '🏕', '⛺️', '🏠', '🏡', '🏘', '🏚', '🏗', 
+    '🏭', '🏢', '🏬', '🏣', '🏤', '🏥', '🏦', '🏨', '🏪', '🏫', '🏩', '💒', '🏛', '⛪️', '⛪️', '🕌', '🕍', '🛕', '🕋', '⛩', '🛤', '🛣', 
+    '🗾', '🎑', '🏞', '🌅', '🌄', '🌠', '🎇', '🎆', '🌇', '🌆', '🏙', '🌃', '🌌', '🌉', '🌁', 
+    '⌚️', '📱', '📲', '💻', '⌨️', '🖥', '🖨', '🖱', '🖲', '🕹', '🗜', '💽', '💾', '💿', '📀', '📼', '📷', '📹', '🎥', '📽',
+    '🎞', '🎞', '📞', '☎️', '📟', '📠', '📺', '📻', '🎙', '🎚', '🎛', '🧭', '⏱', '⏲', '⏰', '🕰', '⌛️', '⏳', '📡', '🔋',
+    '🔌', '💡', '🔦', '🕯', '🪔', '🧯', '🛢', '🛍️', '💸', '💵', '💴', '💶', '💷', '💰', '💳', '💎', '⚖️', '🧰', '🔧', '🔨',
+    '⚒', '🛠', '⛏', '🔩', '⚙️', '🧱', '⛓️‍💥', '🧲', '🔫', '💣', '🧨', '🪓', '🔪', '🗡', '⚔️', '🛡', '🚬', '⚰️', '⚱️', '🏺',
+    '🔮', '📿', '🧿', '💈', '⚗️', '🔭', '🔬', '🕳', '🩹', '🩺', '💊', '💉', '🩸', '🧬', '🦠', '🧫', '🧪', '🌡', '🧹', '🧺',
+    '🧻', '🚽', '🚰', '🚿', '🛁', '🛀', '🧼', '🪒', '🧽', '🧴', '🛎', '🔑', '🗝', '🚪', '🪑', '🛋', '🛏', '🛌', '🧸', '🖼',
+    '🛒', '🎁', '🎈', '🎏', '🎀', '🎊', '🎉', '🎎', '🏮', '🎐', '🧧', '✉️', '📩', '📨', '📧', '💌', '📥', '📤', '📦', '🏷',
+    '📪', '📫', '📬', '📭', '📮', '📯', '📜', '📃', '📄', '📑', '🧾', '📊', '📈', '📉', '🗒', '🗓', '📆', '📅', '🗑', '📇',
+    '🏳️', '🏴', '🏁', '🏁', '🚩', '🏴‍☠️',
+];
 
-    {
-        name: 'avocado',
-        img: '../images/fruits/avocado.png'
-    },
-
-    {
-        name: 'banana',
-        img: '../images/fruits/banana.png'
-    },
-
-    {
-        name: 'blueberry',
-        img: '../images/fruits/blueberry.png'
-    },
-
-    {
-        name: 'grape',
-        img: '../images/fruits/grape.png'
-    },
-
-    {
-        name: 'grapefruit',
-        img: '../images/fruits/grapefruit.png'
-    },
-
-    {
-        name: 'kiwi',
-        img: '../images/fruits/kiwi.png'
-    },
-
-    {
-        name: 'mango',
-        img: '../images/fruits/mango.png'
-    },
-
-    {
-        name: 'orange',
-        img: '../images/fruits/orange.png'
-    },
-
-    {
-        name: 'pear',
-        img: '../images/fruits/pear.png'
-    },
-
-    {
-        name: 'pineapple',
-        img: '../images/fruits/pineapple.png'
-    },
-
-    {
-        name: 'raspberry',
-        img: '../images/fruits/raspberry.png'
-    },
-
-    {
-        name: 'strawberry',
-        img: '../images/fruits/strawberry.png'
-    },
-
-    {
-        name: 'watermelon',
-        img: '../images/fruits/watermelon.png'
-    },
-
-    // Vegetables
-    {
-        name: 'artichoke',
-        img: '../images/vegetables/artichoke.png'
-    },
-
-    {
-        name: 'broccoli',
-        img: '../images/vegetables/broccoli.png'
-    },
-
-    {
-        name: 'brown-onion',
-        img: '../images/vegetables/brown-onion.png'
-    },
-
-    {
-        name: 'cabbage',
-        img: '../images/vegetables/cabbage.png'
-    },
-
-    {
-        name: 'corn',
-        img: '../images/vegetables/corn.png'
-    },
-
-    {
-        name: 'courgette',
-        img: '../images/vegetables/courgette.png'
-    },
-
-    {
-        name: 'cucumber',
-        img: '../images/vegetables/cucumber.png'
-    },
-
-    {
-        name: 'garlic',
-        img: '../images/vegetables/garlic.png'
-    },
-
-    {
-        name: 'green-pepper',
-        img: '../images/vegetables/green-pepper.png'
-    },
-
-    {
-        name: 'red-onion',
-        img: '../images/vegetables/red-onion.png'
-    },
-
-    {
-        name: 'red-pepper',
-        img: '../images/vegetables/red-pepper.png'
-    },
-
-    {
-        name: 'spinach',
-        img: '../images/vegetables/spinach.png'
-    },
-
-    {
-        name: 'tomato',
-        img: '../images/vegetables/tomato.png'
-    },
-
-    {
-        name: 'turnip',
-        img: '../images/vegetables/turnip.png'
-    },
-
-    {
-        name: 'zucchini',
-        img: '../images/vegetables/zucchini.png'
-    },
-
-    // Miscellaneous
-    {
-        name: 'coffee-beans',
-        img: '../images/coffee-beans.png'
-    },
-
-    {
-        name: 'house',
-        img: '../images/miscellaneous/house.png'
-    },
-
-    {
-        name: 'plane',
-        img: '../images/miscellaneous/plane.png'
-    },
-
-    // Fast Food
-    {
-        name: 'cheeseburger',
-        img: '../images/fast food/cheeseburger.png'
-    },
-
-    {
-        name: 'fries',
-        img: '../images/fast food/fries.png'
-    },
-
-    {
-        name: 'hotdog',
-        img: '../images/fast food/hotdog.png'
-    },
-
-    {
-        name: 'ice-cream',
-        img: '../images/fast food/ice-cream.png'
-    },
-
-    {
-        name: 'milkshake',
-        img: '../images/fast food/milkshake.png'
-    },
-
-    {
-        name: 'pizza',
-        img: '../images/fast food/pizza.png'
-    }
-    ]
-
-    cardArray.sort(() => 0.5 - Math.random());
-
-    const grid = document.querySelector('.grid');
-    const result = document.querySelector('#result');
-    let cardsChosen = [];
-    let cardsChosenId = [];
-    let cardsWon = [];
-
+/**
+ * Defines the core logic behaviour of the memory match game.
+ */
+class MemoryMatchGame {
     /**
-     * Randomly select 10 cards without selecting the same one
+     * Initialise the game
+     * @param {number} size - The size of the game grid (e.g., 4 for 4x4 grid).
      */
-    function getRandomElements(cardList) {
-        let randomCards = [...cardList];
-        let newCards = [];
+    constructor(size) {
+        /**
+         * The size of the grid (e.g., 4 for 4x4 grid).
+         */
+        this.size = size;
 
-        for (let count = 0; count < 10; count++) {
-            let randomElements = Math.floor(Math.random()*randomCards.length);
-            let splicedCard = randomCards.splice(randomElements, 1)[0];
-            newCards.push(splicedCard);
-        }
-        return newCards;
+        /**
+         * The game board, represented as an array of emojis
+         */
+        this.board = [];
+
+        /**
+         * Keeps track of the currently flipped cards (indices).
+         */
+        this.flippedCards = [];
+        
+        /**
+         * Tracks the number of matched pairs.
+         */
+        this.matchedCards = 0;
+        
+        /**
+         * Calculates the total number of pairs in the grid.
+         */
+        this.totalPairs = (size * size) /2;
+        
+        /**
+         * Keeps track of the number of moves the player has made
+         */
+        this.moves = 0;
+
+        /**
+         * Keeps track of the score
+         */
+        this.score = 0;
+
+        /**
+         * Updates the time elapsed during gameplay
+         */
+        this.timeElapsed = 0;
+
+        this.timerInterval = null;
+
+        this.createBoard();
     }
 
-    getRandomElements(cardArray);
-
-    /**
-     * Initialise the game board
-     */
-    function createBoard() {
-        for (let index = 0; index < cardArray.length; index++) {
-            const card = document.createElement('img');
-            card.setAttribute('src', '../CSS/images/background/blue-gradient.png');
-            card.setAttribute('data-id', index);
-            card.addEventListener('click', flipCard);
-            grid.appendChild(card);
-        }
+    startTimer() {
+        this.timerInterval = setInterval(() => {
+            this.timeElapsed++;
+            document.querySelector('.timer').textContent = 
+        });
     }
 
-    /** Check for matches */ 
-    function checkForMatch() {
-        const cards = document.querySelectorAll('img');
-        const cardOneId = cardsChosenId[0];
-        const cardTwoId = cardsChosenId[1];
-
-        if (cardOneId == cardTwoId) {
-            cards[cardOneId].setAttribute('src', '../CSS/images/background/blue-gradient.png');
-            cards[cardTwoId].setAttribute('src', '../CSS/images/background/blue-gradient.png');
-            showMessage('You have clicked the same image!');
-        } else if (cardsChosen[0] === cardsChosen[1]) {
-            showMessage('You found a match');
-            cards[cardOneId].setAttribute('src', '../CSS/images/background/blue-gradient.png');
-            cards[cardTwoId].setAttribute('src', '../CSS/images/background/blue-gradient.png');
-            cards[cardOneId].removeEventListener('click', flipCard);
-            cards[cardTwoId].removeEventListener('click', flipCard);
-            cardsWon.push(cardsChosen);
-        } else {
-            cards[cardOneId].setAttribute('src', '../CSS/images/background/blue-gradient.png');
-            cards[cardTwoId].setAttribute('src', '../CSS/images/background/blue-gradient.png');
-            showMessage('Sorry, try again!');
-        }
-        cardsChosen = [];
-        cardsChosenId = [];
-        result.textContent = cardsWon.length;
-        if (cardsWon.length === cardArray.length / 2) {
-            result.textContent = 'Congratulations! You found them all!';
-        }
+    stopTimer() {
+        clearInterval(this.timerInterval);
     }
 
     /**
-     * Flip two cards
+     * Creates the game board by selecting and shuffling emojis.
      */
-    function flipCard() {
-        let cardId = this.getAttribute('data-id');
-        cardsChosen.push(cardArray[cardId].name);
-        cardsChosenId.push(cardId);
-        this.setAttribute('src', cardArray[cardId].img);
-        if (cardsChosen.length === 2) {
-            setTimeout(checkForMatch, 500);
-        }
+    createBoard() {
+        /**
+         * Select the required number of unique emojis to create pairs.
+         */
+        let selectedEmojis = emojis.slice(0, this.totalPairs);
+        
+        // Duplicate the emojis to form pairs and shuffle them randomly.
+        this.board = [...selectedEmojis, ...selectedEmojis].sort(() => Math.random() - 0.5);
     }
 
-    createBoard();
-})
+    /**
+     * Reveals all cards briefly to the player for memorisation.
+     */
+    revealAllCards() {
+        // Temporarily flip all cards.
+        this.flippedCards = [...Array(this.board.length).keys()];
+        this.render();
+        
+        // Hide all cards after 1 second.
+        setTimeout(() => {
+            this.flippedCards = [];
+            this.render();
+        }, 1000);
+    }
+
+    /**
+     * Renders the game board on the webpage.
+     */
+    render() {
+        const gameBoard = document.getElementById('game-board');
+        gameBoard.innerHTML = '';
+        gameBoard.style.gridTemplateColumns = `repeat(${this.size}, 1fr)`;
+        gameBoard.style.gridTemplateRows = `repeat(${this.size}, 1fr)`;
+
+        this.board.forEach((emoji, index) => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            
+            if (this.flippedCards.includes(index)) {
+                card.classList.add('flipped');
+            }
+
+            if (emoji === null) {
+                card.classList.add('hidden');
+            } else {
+                card.textContent = this.flippedCards.includes(index) ? emoji : '?';
+            }
+
+            card.addEventListener('click', () => this.flipCard(index));
+            gameBoard.appendChild(card);
+        });
+    }
+
+    /**
+     * Handles the logic for flipping a card.
+     * @param {number} index - The index of the card being flipped.
+     */
+    flipCard(index) {
+        // Prevent flipping more than two cards or invalid cards.
+        if (this.flippedCards.length === 2 || this.board[index] === null || this.flippedCards.includes(index)) return;
+        
+        // Flip the selected card and re-render the board.
+        this.flippedCards.push(index);
+        this.render();
+
+        // Check for a match if two cards are flipped.
+        if (this.flippedCards.length === 2) {
+            setTimeout(() => this.checkMatch(), 1000);
+        } 
+    }
+
+    /**
+     * Checks if the flipped cards are a match.
+     */
+    checkMatch() {
+        // Get the indices of the flipped cards.
+        const [first, second] = this.flippedCards;
+
+        // Check if the two cards match.
+        if (this.board[first] === this.board[second]) {
+            // Remove matched cards from the board.
+            this.board[first] = null;
+            this.board[second] = null;
+
+            // Increment the matched pairs count.
+            this.matchedCards++;
+
+            // Temporarily hide matched cards visually.
+            setTimeout(() => {
+                document.querySelectorAll('.card.flipped').forEach(card => {
+                    card.classList.add('hidden');
+                });
+            }, 500);
+
+            // Show a popup if all pairs are matched.
+            if (this.matchedCards === this.totalPairs) {
+                setTimeout(() => this.showPopup(), 500);
+            }
+        }
+
+        // Reset flipped cards and re-render the board.
+        this.flippedCards = [];
+        this.render();
+        
+    }
+
+    /**
+     * Displays a popup when the game is completed.
+     */
+    showPopup() {
+        document.getElementById('popup').classList.remove('hidden');
+    }
+}
+
+// Add event listener to start the game when the button is clicked.
+document.getElementById('start-game').addEventListener('click', () => {
+    const size = parseInt(document.getElementById('grid-size').value);
+    const game = new MemoryMatchGame(size);
+    game.revealAllCards();
+});
+
+// Add event listener to close the popup when the button is clicked.
+document.getElementById('close-popup').addEventListener('click', () => {
+    const popup = document.getElementById('popup');
+    popup.classList.add('hidden');
+});

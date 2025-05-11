@@ -318,8 +318,8 @@ include "../navbar.php";
                 </div>
             </div>
         </li>
-        </ul><!-- /.templates -->
-
+        </ul><!-- End of templates -->
 
     <script src="../JavaScript/brain-games/solitaire/solitaire.js"></script>
+    <script src="../JavaScript/navbar/nav-behaviour.js"></script>
 </body>

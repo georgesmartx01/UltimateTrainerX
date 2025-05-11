@@ -1,3 +1,12 @@
+:root {
+    --base-color: white;
+    --base-variant: #e8e9ed;
+    --text-color: #111528;
+    --secondary-text: #232738;
+    --primary-color: #3a435d;
+    --accent-color: #0071ff;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -55,7 +64,7 @@ nav {
 
 .nav_links li a {
     display: block; /* Ensure link occupies the entire block */
-    color: black;
+    color: white;
     text-decoration: none;
     font-size: 20px;
     transition: color 0.2s;
@@ -71,11 +80,11 @@ nav {
 }
 
 .nav_links li a:hover {
-    color: black;
+    color: white;
 }
 
 .nav_links li.active a {
-    color: black;
+    color: white;
 }
 
 .icon-container {
@@ -102,7 +111,6 @@ nav {
     position: absolute;
     top: 110%;
     transform: translateX(-35%);
-    text-align: center;
     width: 400px;
     height: 450px;
     background: linear-gradient(rgb(28, 44, 116), rgb(30, 42, 97), rgb(14, 14, 95), rgb(23, 20, 66));
@@ -116,21 +124,79 @@ nav {
 }
 
 .settings-popover h3 {
-    margin: 0;
-    font-size: 22px;
+    margin-bottom: 15px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.dark-mode-container .toggle {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 30px;
+    background: rgb(7, 13, 63);
+    border-radius: 30px;
+    transform: translate(175px, -25px);
+    transition: 0.3s ease;
+}
+
+.dark-mode-container #dm-opt {
+    font-size: 18px;
+    top: 0;
+    left: 0;
+    margin-left: 5px;
+}
+
+.dark-mode-container .toggle .toggle-dark-mode {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    background: rgb(10, 10, 80);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.dark-mode-container .toggle.active {
+    background: cornflowerblue;
+}
+
+.dark-mode-container .toggle.active .toggle-dark-mode {
+    position: relative;
+    top: 0;
+    left: 30px;
+    width: 30px;
+    height: 30px;
+    background: rgb(7, 13, 63);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dark-mode-container .dm-text {
+    position: relative;
+    left: 60px;
+    bottom: 25px;
+    font-size: 18px;
+    margin-left: 10px;
+    transform: translate(175px, -25px);
 }
 
 .settings-popover #show-more {
+    text-align: center;
     text-decoration: underline;
     text-decoration-color: blue;
 }
 
 .settings-popover p a {
-    font-size: 16px;
+    font-size: 18px;
     color: blue;
 }
 
 .icon-description {
+    color: white;
     visibility: hidden;
     width: fit-content;
     background-color: rgba(41, 41, 182, 0.8);

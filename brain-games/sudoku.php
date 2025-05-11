@@ -7,91 +7,169 @@
     <link rel="stylesheet" type="text/css" href="../CSS/brain-games/sudoku.css">
     <link rel="stylesheet" href="../CSS/navbar.css">
     <title>Sudoku</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <?php 
 include "../navbar.php";
 ?>
 
-<body class="flex-row">
-    <div id="main__container">
-        <div id="header__controls" class="flex-row">
-            <span id="header__menu"><img src="../CSS/images/sudoku/3dots.svg" id="dotMenuSpan" ></span>
-            <Span id="header__header">SUDOKU</Span>
-            <span id="header__submit"><span>Submit</span ></span>
-        </div>
-        <div id="dotMenu">
-            <div id="back" class="flex-row" style="justify-content: space-evenly;"><img src="../CSS/images/sudoku/home.svg" alt=""> Home</div>
-            <div id="newGame">New Game</div>
-            <div id="clear">Clear All</div>
-            <div id="solver"> <span id="text"></span>
-                <div id="solverMenu">
-                    <div id="solverStart">Start</div>
-                    <div id="solverWatch"> 
-                        <input type="checkbox" id="solverWatchCbox" name="solverWatchCbox" value="watch" checked>
-                        <label for="solverWatchCbox">Watch</label>
+<body>
+     <!-- main -->
+     <div class="main">
+        <div class="screen">
+            <!-- start screen -->
+            <div class="start-screen active" id="start-screen">
+                <input type="text" placeholder="Your name" maxlength="11" class="input-name" id="input-name">
+                <div class="btn" id="btn-level">
+                    Easy
+                </div>
+                <div class="btn" id="btn-continue">Continue</div>
+                <div class="btn btn-blue" id="btn-play">New game</div>
+            </div>
+            <!-- end start screen -->
+
+            <!-- game screen -->
+            <div class="main-game" id="game-screen">
+                <div class="main-sudoku-grid">
+                    <!-- 81 cells -->
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                    <div class="main-grid-cell"></div>
+                </div>
+
+                <div class="main-game-info">
+                    <div class="main-game-info-box main-game-info-name">
+                        <span id="player-name">tuat</span>
                     </div>
-                    <div id="solverSpeed">
-                        <label for="speedRange">Speed</label>
-                        <input type="range" name="speedRange" id="speedRange" max="250" min="50" value="100">
+                    <div class="main-game-info-box main-game-info-level">
+                        <span id="game-level">Easy</span>
                     </div>
-                    <div id="solverStop">Stop</div>
                 </div>
 
-            </div>
-        </div>
-        
-        <!-- board -->
-        <div id="board">
+                <div class="main-game-info-box main-game-info-time">
+                    <span id="game-time">10:20</span>
+                    <div class="pause-btn" id="btn-pause">
+                        <i class="bx bx-pause"></i>
+                    </div>
+                </div>
 
-        </div>
-        <div id="keypad" class="flex-row">
-        </div>
-
-    </div>
-
-    <!-- home page with menu options -->
-    <div id="home">
-        <div id="header">
-            <div id="title">SUDOKU</div>
-
-            <div id="selection__size" class="selection flex-row">
-                <span class="title">Size</span>
-                <div class="options flex-row">
-                    <span data-size="4"><svg width="24" height="24" viewBox="0 0 1792 1792"
-                            xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                            <path
-                                d="M832 1024v384q0 52-38 90t-90 38h-512q-52 0-90-38t-38-90v-384q0-52 38-90t90-38h512q52 0 90 38t38 90zm0-768v384q0 52-38 90t-90 38h-512q-52 0-90-38t-38-90v-384q0-52 38-90t90-38h512q52 0 90 38t38 90zm896 768v384q0 52-38 90t-90 38h-512q-52 0-90-38t-38-90v-384q0-52 38-90t90-38h512q52 0 90 38t38 90zm0-768v384q0 52-38 90t-90 38h-512q-52 0-90-38t-38-90v-384q0-52 38-90t90-38h512q52 0 90 38t38 90z" />
-                            </svg></span>
-                    <span data-size="9"><svg width="24" height="24" viewBox="0 0 1792 1792"
-                            xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                            <path
-                                d="M512 1248v192q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h320q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h320q40 0 68 28t28 68zm640 512v192q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h320q40 0 68 28t28 68zm-640-1024v192q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h320q40 0 68 28t28 68zm640 512v192q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h320q40 0 68 28t28 68zm640 512v192q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h320q40 0 68 28t28 68zm-640-1024v192q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h320q40 0 68 28t28 68zm640 512v192q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h320q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h320q40 0 68 28t28 68z" />
-                            </svg></span>
+                <div class="numbers">
+                    <div class="number">1</div>
+                    <div class="number">2</div>
+                    <div class="number">3</div>
+                    <div class="number">4</div>
+                    <div class="number">5</div>
+                    <div class="number">6</div>
+                    <div class="number">7</div>
+                    <div class="number">8</div>
+                    <div class="number">9</div>
+                    <div class="delete" id="btn-delete">X</div>
                 </div>
             </div>
+            <!-- end game screen -->
 
-            <div id="selection__level" class="selection flex-row">
-                <span class="title">Level</span>
-                <div class="options">
-                    <span data-level=0>Easy</span>
-                    <span data-level=1>Medium</span>
-                    <span data-level=2>Hard</span>
-                    <span data-level=3>Extreme</span>
-                </div>
+            <!-- pause screen -->
+            <div class="pause-screen" id="pause-screen">
+                <div class="btn btn-blue" id="btn-resume">Resume</div>
+                <div class="btn" id="btn-new-game">New game</div>
             </div>
-            <div id="start">start</div>
+            <!-- end pause screen -->
+
+            <!-- result screen -->
+            <div class="result-screen" id="result-screen">
+                <div class="congrate">Competed</div>
+                <div class="info">Time</div>
+                <div id="result-time"></div>
+                <div class="btn" id="btn-new-game-2">New game</div>
+            </div>
+            <!-- end result screen -->
         </div>
     </div>
+    <!-- end main -->
 
-    <script src="../JavaScript/brain-games/sudoku/global.js"></script>
-    <script src="../JavaScript/brain-games/sudoku/combinations.js"></script>
-    <script src="../JavaScript/brain-games/sudoku/validate.js"></script>
-    <script src="../JavaScript/brain-games/sudoku/board.js"></script>
-    <script src="../JavaScript/brain-games/sudoku/view.js"></script>
-    <script src="../JavaScript/brain-games/sudoku/digger.js"></script>
-    <script src="../JavaScript/brain-games/sudoku/user-actions.js"></script>
-    <script src="../JavaScript/brain-games/sudoku/solver.js"></script>
+    <script src="../JavaScript/brain-games/sudoku/constant.js"></script>
     <script src="../JavaScript/brain-games/sudoku/sudoku.js"></script>
+    <script src="../JavaScript/brain-games/sudoku/game.js"></script>
 </body>
 </html>

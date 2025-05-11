@@ -34,4 +34,6 @@
             wordsWrap.appendChild(liEl);
         });
     </script>
+
+    <script src="../JavaScript/navbar/nav-behaviour.js"></script>
 </body>

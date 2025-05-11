@@ -9,5 +9,148 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
+    margin: 0;
+}
+
+.popup.hidden {
+  display: none;
+}
+
+#game-container {
+  text-align: center;
+  background-color: rgb(5, 5, 59);
+  border: 2px solid rgb(10, 10, 114);
+  padding: 20px;
+  border-radius: 15px;
+  width: 80%;
+  max-width: 700px;
+  perspective: 1000px;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+#settings {
+  margin-bottom: 20px;
+}
+
+label {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+select {
+  padding: 5px 8px;
+  font-size: 16px;
+  margin-right: 10px;
+  background-color: rgb(11, 11, 99);
+  border-radius: 5px;
+  border: 2px solid rgb(8, 8, 107);
+}
+
+select:hover {
+  background-color: navy;
+}
+
+select:focus {
+  box-shadow: 0 0 10px blue;
+}
+
+#start-game, #restart-game, #close-popup {
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: blue;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#start-game:hover,
+#restart-game:hover,
+#close-popup:hover {
+  background-color: rgb(19, 23, 138);
+}
+
+.stats {
+  display: flex;
+  gap: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#game-board {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.card {
+  background-color: rgb(23, 23, 139);
+  color: white;
+  font-size: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.card:active {
+  transform: scale(0.97);
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+  background-color: rgb(24, 24, 119);
+  transition: transform 0.2s;
+}
+
+.card.flipped:active {
+   transition: transform 0.2s ease;
+}
+
+.card.hidden {
+  background-color: rgb(14, 14, 85);
+  border: none;
+  cursor: default;
+  visibility: hidden;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(3, 3, 54, 0.5);
+}
+
+.popup-content {
+  background-color: rgb(9, 9, 77);
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px solid rgb(10, 10, 114);
+  text-align: center;
+}
+
+.popup-content h2 {
+  margin-bottom: 10px;
+}
+
+.popup-content p {
+  margin-bottom: 20px;
 }

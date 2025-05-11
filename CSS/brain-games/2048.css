@@ -21,7 +21,7 @@ body {
     background: lightblue;
     padding: 15px;
     border-radius: 10px;
-    margin-top: 20px;
+    margin-top: 50px;
     position: relative;
 }
 
@@ -111,7 +111,7 @@ button#restart {
     padding: 10px 20px;
     font-size: 16px;
     border: none;
-    background-color: #15b2ca;
+    background-color: rgb();
     border-radius: 4px;
     cursor: pointer;
 }

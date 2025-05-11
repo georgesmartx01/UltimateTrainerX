@@ -14,11 +14,16 @@ body {
     text-align: center;
 }
 
-.container {
-    background: rgb(11, 12, 63);
+.game-container {
+    background: rgb(8, 8, 51);
     border-radius: 15px;
     padding: 30px;
     width: 500px;
+    border: 2px solid rgb(9, 9, 110);
+}
+
+.game-container label {
+    font-size: 16px;
 }
 
 h1 {
@@ -29,20 +34,22 @@ h1 {
 .select-diff, .usr-input {
     width: 100%;
     padding: 10px;
+    font-size: 16px;
     margin-top: 10px;
     border-radius: 5px;
-    border: none;
-    box-shadow: 0 2px 10px rgba(4, 7, 185, 0.5);
+    border: 2px solid blue;
+    background-color: rgb(3, 3, 28);
 }
 
 .select-diff:focus, .usr-input:focus {
     outline: none;
-    box-shadow: 0 0 5px blue;
+    box-shadow: 0 0 10px blue;
 }
 
 .start, .guess, #next-btn {
-    background-color: #2575fc;
+    background-color: rgb(14, 14, 148);
     border: none;
+    font-size: 16px;
     border-radius: 20px;
     padding: 10px 15px;
     margin-top: 15px;
@@ -52,8 +59,8 @@ h1 {
 }
 
 .start:hover, .guess:hover, #next-btn:hover {
-    background-color: #1d5bb8;
-    transform: scale(1.05);
+    background-color: rgb(7, 9, 107);
+    transform: scale(1.1);
 }
 
 .game-area {
@@ -63,12 +70,15 @@ h1 {
 .hint-text {
     font-size: 18px;
     margin: 15px 0;
-    color: orange;
+    color: darkblue;
+    font-weight: bold;
 }
 
 .score-text {
     margin: 10px 0;
     font-size: 16px;
+    font-weight: bold;
+    color: blue;
 }
 
 .hidden {

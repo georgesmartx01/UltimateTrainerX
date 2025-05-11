@@ -115,4 +115,5 @@
     <script src="../JavaScript/brain-games/puzzle-math/libs/jquery-3.5.1.slim.min.js"></script>
 	<script src="../JavaScript/brain-games/puzzle-math/libs/bootstrap.bundle.min.js"></script>
     <script src="../JavaScript/brain-games/puzzle-math/puzzle-math.js"></script>
+	<script src="../JavaScript/navbar/nav-behaviour.js"></script>
 </body>

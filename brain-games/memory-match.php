@@ -1,8 +1,3 @@
-<?php
-    include "../connectdb.php";
-    session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,7 +14,35 @@
     ?>
 
     <body>
-        <h3>Score:<span id="result"></span></h3>
-        <script src="../JavaScript/games/memory-match/memory-match.js" defer></script>
+        <div id="game-container">
+            <h1>Memory Match</h1>
+            <div class="controls">
+                <div class="stats">
+                    <div class="moves">0 moves</div>
+                    <div class="timer">Time: 0 sec</div>
+                </div>
+            </div>
+
+            <div id="settings">
+                <label for="grid-size">Select grid size:</label>
+                <select name="grid-size" id="grid-size">
+                    <option value="4">4 x 4</option>
+                    <option value="6">6 x 6</option>
+                </select>
+                <button id="start-game">Start Game</button>
+            </div>
+            <div id="game-board"></div>
+        </div>
+
+        <div id="popup" class="popup hidden">
+            <div class="popup-content">
+                <h2>Congratulations!</h2>
+                <p>You won the game!</p>
+                <button id="close-popup">Close</button>
+            </div>
+        </div>
+
+        <script src="../JavaScript/brain-games/memory-match/memory-match.js"></script>
+        <script src="../JavaScript/navbar/nav-behaviour.js"></script>
     </body>
 </html>

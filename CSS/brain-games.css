@@ -13,6 +13,46 @@ h1, .caption {
     margin: 20px;
 }
 
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.search-container input {
+    text-align: center;
+}
+
+.search-container input[type=text] {
+    width: 600px;
+    padding: 10px 15px;
+    font-size: 17px;
+    border: blue;
+    color: blue;
+    border-radius: 15px 0 0 15px;
+    outline: none;
+    background: rgb(5, 4, 59);
+}
+
+.search-container button {
+    float: right;
+    padding: 10px 15px;
+    font-size: 17px;
+    background: blue;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 15px 15px 0;
+}
+
+.search-container button:hover {
+    background: navy;
+}
+
+.search-container input[type=text]::placeholder {
+    text-align: center;
+    color: blue;
+}
+
 /* Float four columns side by side */
 .column {
     float: left;
@@ -54,8 +94,8 @@ h1, .caption {
 
 /* Style the game cards */
 .card {
-    width: 415px; /* Set a fixed width */
-    height: 410px; /* Set a fixed height */
+    width: 415px;
+    height: 440px;
     display: table;
     flex-direction: column;
     align-items: left;
@@ -73,12 +113,16 @@ h1, .caption {
     transform: scale(1.03);
 }
 
-.card .container:hover img {
+.card .game-container:hover img {
     opacity: 0.3;
 }
 
-.card .container:hover .middle {
+.card .game-container:hover .middle {
     opacity: 1;
+}
+
+.game-container > .game-name {
+    margin-bottom: 10px;
 }
 
 .middle {
@@ -87,7 +131,7 @@ h1, .caption {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
-    transition: opacity .2s ease;
+    transition: opacity 0.2s ease;
 }
 
 .middle p {
@@ -96,12 +140,13 @@ h1, .caption {
 }
 
 .middle button {
-    background: linear-gradient(blue, slateblue, darkslateblue, darkblue);
+    background: linear-gradient(mediumslateblue, slateblue, darkslateblue, darkblue);
     font-size: 16px;
     padding: 12px 32px;
     cursor: pointer;
     border-radius: 15px;
-    opacity: 0.9;
+    border: 2px solid navy;
+    opacity: 0.8;
 }
 
 .middle button a {
@@ -111,7 +156,8 @@ h1, .caption {
 }
 
 .middle button:hover {
-    background: mediumslateblue;
+    background: blue;
+    transition: all 0.2s ease;
 }
 
 .card img {

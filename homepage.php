@@ -95,5 +95,6 @@
                 <h1>What people have said about UltimateTrainerX?</h1>
             </section>
         </div>
+        <?php include "footer.php"; ?>
     </body>
 </html>

@@ -36,5 +36,6 @@ include "../navbar.php";
     </div>
 
     <script src="../JavaScript/brain-games/minesweeper/minesweeper.js"></script>
+    <script src="../JavaScript/navbar/nav-behaviour.js"></script>
 </body>
 </html>

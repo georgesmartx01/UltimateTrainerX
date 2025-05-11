@@ -1,255 +1,183 @@
-// Initial references
-const gameContainer = document.querySelector(".game-container");
-const playerTurn = document.getElementById("player-turn");
-const startScreen = document.querySelector(".start-screen");
-const startButton = document.getElementById("start-btn");
-const message = document.getElementById("message");
-let initalMatrix = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0]
-];
-
-let currentPlayer;
-
-// Random Number Between Range
-const generateRandomNumber = (min, max) => Math.floor(Math.random() * (max - min) + min);
-
-// Loop through array and check for the same values
-const verifyArray = (arrayElement) => {
-    let bool = false;
-    let elementCount = 0;
-    arrayElement.forEach((element) => {
-        if (element == currentPlayer) {
-            elementCount += 1;
-            if (elementCount == 4) {
-                bool = true;
-            }
-        } else {
-            elementCount = 0;
-        }
-    });
-    return bool;
-}
-
-// Check for game over (Last step)
-const gameOverCheck = () => {
-    let truthCount = 0;
-    for (let circleArray of initalMatrix) {
-        if (circleArray.every((value) => value != 0)) {
-            truthCount += 1;
-        } else {
-            return false;
-        }
-    }
-
-    if (truthCount == 6) {
-        message.innerText = "Game Over";
-        startScreen.classList.remove("hide");
-    }
-};
-
-/**
- * Check rows
- * @param {number} row - The row of the circle
- * @returns 
- */
-const checkAdjacentRowValues = (row) => {
-    return verifyArray(initalMatrix[row]);
-};
-
-/**
- * Check columns
- */ 
-const checkAdjacentColumnValues = (column) => {
-    let columnWinCount = 0;
-    columnWinBool = false;
-    initalMatrix.forEach((element) => {
-        if (element[column] == currentPlayer) {
-            columnWinCount += 1;
-
-            if (columnWinCount == 4) {
-                columnWinBool = true;
-            }
-        } else {
-            columnWinCount = 0;
-        }
-    });
-    // no match
-    return columnWinBool;
-}
-
-/** 
- * Get right diagonal values
- */ 
-const getRightDiagonal = (row, column, rowLength, columnLength) => {
-    let rowCount = row;
-    let columnCount = column;
-    let rightDiagonal = [];
-    while (rowCount > 0) {
-        if (columnCount >= columnLength - 1) {
-            break;
-        }
-        rowCount -= 1;
-        columnCount += 1;
-        rightDiagonal.unshift(initalMatrix[rowCount][columnCount]);
-    }
-    rowCount = row;
-    columnCount = column;
-    while (rowCount < rowLength) {
-        if (columnCount < 0) {
-            break;
-        }
-        rightDiagonal.push(initalMatrix[rowCount][columnCount]);
-        rowCount += 1;
-        columnCount -= 1;
-    }
-    return rightDiagonal;
-};
-
-const getLeftDiagonal = (row, column, rowLength, columnLength) => {
-    let rowCount = row;
-    let columnCount = column;
-    let leftDiagonal = [];
-    while (rowCount > 0) {
-        if (columnCount <= 0) {
-            break;
-        }
-        rowCount -= 1;
-        columnCount -= 1;
-        leftDiagonal.unshift(initalMatrix[rowCount][columnCount]);
-    }
-    rowCount = row;
-    columnCount = column;
-    while (rowCount < rowLength) {
-        if (columnCount >= columnLength) {
-            break;
-        }
-        leftDiagonal.push(initalMatrix[rowCount][columnCount]);
-    }
-    rowCount = row;
-    columnCount = column;
-    while (rowCount < rowLength) {
-        if (columnCount >= columnLength) {
-            break;
-        }
-        leftDiagonal.push(initalMatrix[rowCount][columnCount]);
-        rowCount += 1;
-        columnCount += 1;
-    }
-    return leftDiagonal;
-};
-
-// Check diagonal
-const checkAdjacentDiagonalValues = (row, column) => {
-    let diagonalWinBool = false;
-    let tempChecks = {
-        leftTop: [],
-        rightTop: []
+document.addEventListener("DOMContentLoaded", function () {
+    /**
+     * Represents the current player.
+     * Player `1` corresponds to red and `-1` to yellow.
+     */
+    let player = 1;
+    
+    /**
+     * Tracks the winner of the game.
+     * If `0`, the game is still ongoing.
+     * If `1` or `-1`, that player has won.
+     */
+    let winner = 0;
+    
+    /**
+     * Stores colour mappings for each player.
+     * - `1` represents red
+     * - `-1` represents yellow.
+     */
+    let colours = {
+        "-1": "yellow",
+        "1": "red"
     };
-    let columnLength = initalMatrix[row].length;
-    let rowLength = initalMatrix.length;
+    
+    /**
+     * Counter used to assign unique IDs to cells.
+     * Increments as cells are initialised.
+     */
+    let count = 0;
 
-    // Store left and right diagonal array
-    tempChecks.leftTop = [
-        ...getLeftDiagonal(row, column, rowLength, columnLength)
-    ];
+    /**
+     * NodeList containing all game cells.
+     * Each cell represents a slot on the Connect Four grid.
+     */
+    let cells = document.querySelectorAll(".cell");
 
-    tempChecks.rightTop = [
-        ...getRightDiagonal(row, column, rowLength, columnLength)
-    ];
+    cells.forEach(function (cell) {
+        cell.id = count;
+        cell.dataset.player = "0";
+        count++;
 
-    // Check both arrays for similarities
-    diagonalWinBool = verifyArray(tempChecks.rightTop);
-    if (!diagonalWinBool) {
-        diagonalWinBool = verifyArray(tempChecks.leftTop);
+        cell.addEventListener("click", function () {
+            if (isValid(cell.id)) {
+                cell.style.backgroundColor = colours[player];
+                cell.dataset.player = player;
+                if (checkWin(player)) {
+                    alert(colours[player] + " has won!");
+                    winner = player;
+                }
+                player = player === 1 ? -1 : 1; // Switch player turn
+            }
+        });
+    });
+
+    /**
+     * 
+     */
+    const restartButton = document.querySelector(".restart-btn");
+
+    restartButton.addEventListener("click", function() {
+        clearBoard();
+    });
+
+    /**
+     * Resets the board by clearing player data and restoring default colours.
+     */
+    function clearBoard() {
+        document.querySelectorAll(".cell").forEach(cell => {
+            cell.setAttribute("data-player", "0");
+            cell.style.backgroundColor = "rgb(3, 3, 49)";
+        });
+        
+        winner = 0; // reset winner
     }
-    return diagonalWinBool;
-};
 
-// Win check logic
-const winCheck = (row, column) => {
-    // if any of the functions return true we return true
-    return checkAdjacentRowValues(row) 
-    ? true 
-    : checkAdjacentColumnValues(column) 
-    ? true 
-    :checkAdjacentDiagonalValues(row, column) 
-    ? true 
-    : false;
-};
+    /**
+     * Checks if a move is valid based on board constraints.
+     * @param {number} n - The ID of the cell.
+     * @returns {boolean} - Returns true if move is valid, false otherwise.
+     */
+    function isValid(n) {
+        let id = parseInt(n);
 
-// Sets the circle to exact points
-const setPiece = (startCount, columnValue) => {
-    let rows = document.querySelectorAll(".grid-row");
-    // Initially, it will place the circles in the last row else if 
-    // no place available we will decrement the count until we gind empty slots
-    if (initalMatrix[startCount][columnValue] != 0) {
-        startCount -= 1;
-        setPiece(startCount, columnValue);
-    } else {
-        // place circle
-        let currentRow = rows[startCount].querySelectorAll(".grid-box");
-        currentRow[columnValue].classList.add("filled", `player${currentPlayer}`);
-
-        // Update matrix
-        initalMatrix[startCount][columnValue] = currentPlayer;
-
-        // Check for wins
-        if (winCheck(startCount, columnValue)) {
-            message.innerHTML = `Player<span>${currentPlayer}</span> wins`;
-            startScreen.classList.remove("hide");
+        if (winner !== 0) {
             return false;
         }
-    }
-    // Check if all are full
-    gameOverCheck();
-};
 
-// When user clicks on a box
-const fillBox = (event) => {
-    // get column value
-    let columnValue = parseInt(event.target.getAttribute("data-value"));
-    // 5 because we have 6 rows (0-5)
-    setPiece(5, columnValue);
-    currentPlayer = currentPlayer == 1 ? 2 : 1;
-    playerTurn.innerHTML = `Player <span>${currentPlayer}'s</span> turn`;
-}
-
-// Create Matrix
-const matrixCreator = () => {
-    for (let circleArray in initalMatrix) {
-        let outerDiv = document.createElement("div");
-        outerDiv.classList.add("grid-row");
-        outerDiv.setAttribute("data-value", circleArray);
-        
-        for (let j in initalMatrix[circleArray]) {
-            // Set all matrix values to 0
-            initalMatrix[circleArray][j] = 0;
-            let innerDiv = document.createElement("div");
-            innerDiv.classList.add("grid-box");
-            innerDiv.setAttribute("data-value", j);
-            innerDiv.addEventListener("click", (event) => {
-                fillBox(event);
-            });
-            outerDiv.appendChild(innerDiv);
+        if (document.getElementById(id).dataset.player === "0") {
+            if (id >= 35 || document.getElementById(id + 7).dataset.player !== "0") {
+                return true;
+            }
         }
-        gameContainer.appendChild(outerDiv);
+        return false;
     }
-};
 
-// Initialise game
-window.onload = startGame = async () => {
-    // Between 1 and 2
-    currentPlayer = generateRandomNumber(1, 3);
-    await matrixCreator();
-    playerTurn.innerHTML = `Player <span>${currentPlayer}'s</span> turn`;
-};
+    /**
+     * Determines if a player has won the game by checking rows, columns and diagonals.
+     * @param {number} p - The player value (1, -1).
+     * @returns {boolean} - Returns true if the player wins.
+     */
+    function checkWin(p) {
+        // check rows
+        let chain = 0;
+        for (let i = 0; i < 42; i += 7) {
+            for (let j = 0; j < 7; j++) {
+                let cell = document.getElementById(i + j);
+                if (cell.dataset.player == p) {
+                    chain++;
+                } else {
+                    chain = 0;
+                }
 
-startButton.addEventListener("click", () => {
-    startScreen.classList.add("hide");
-    startGame();
+                if (chain >= 4) {
+                    return true;
+                }
+            }
+            chain = 0;
+        }
+
+        // check columns
+        chain = 0;
+
+        for (let i = 0; i < 7; i++) {
+            for (let j = 0; j < 42; j += 7) {
+                let cell = document.getElementById(i + j);
+
+                if (cell.dataset.player == p) {
+                    chain++;
+                } else {
+                    chain = 0;
+                }
+
+                if (chain >= 4) {
+                    return true;
+                }
+            }
+
+            chain = 0;
+        }
+
+        // check diagonals
+        let topLeft = 0;
+        let topRight = topLeft + 3;
+
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 4; j++) {
+                let topLeftCell1 = document.getElementById(topLeft);
+                let topLeftCell2 = document.getElementById(topLeft + 8);
+                let topLeftCell3 = document.getElementById(topLeft + 16);
+                let topLeftCell4 = document.getElementById(topLeft + 24);
+
+                let topRightCell1 = document.getElementById(topRight);
+                let topRightCell2 = document.getElementById(topRight + 6);
+                let topRightCell3 = document.getElementById(topRight + 12);
+                let topRightCell4 = document.getElementById(topRight + 18);
+
+                if (topLeftCell1 && topLeftCell2 && topLeftCell3 && topLeftCell4) {
+                    if (topLeftCell1.dataset.player == p &&
+                        topLeftCell2.dataset.player == p &&
+                        topLeftCell3.dataset.player == p &&
+                        topLeftCell4.dataset.player == p) {
+                        return true;
+                    }                    
+                }
+
+                if (topRightCell1 && topRightCell2 && topRightCell3 && topRightCell4) {
+                    if (topRightCell1.dataset.player == p &&
+                        topRightCell2.dataset.player == p &&
+                        topRightCell3.dataset.player == p &&
+                        topRightCell4.dataset.player == p) {
+                        return true;
+                    }
+                }
+
+                topLeft++;
+                topRight = topLeft + 3;
+            }
+            topLeft = i * 7 + 7;
+            topRight = topLeft + 3;
+        }
+        return false;
+    }
 });

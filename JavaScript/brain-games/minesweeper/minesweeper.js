@@ -343,11 +343,15 @@ class Minesweeper {
      */
     constructor() {
         this.minefield = null;
+
+        /**
+         * The difficulty levels the user can select from
+         */
         this.levels = {
             novice: { rows: 9, columns: 9, mines: 10 }, // Beginner difficulty
             intermediate: { rows: 16, columns: 16, mines: 40 }, // Medium difficulty
             expert: { rows: 30, columns: 16, mines: 99 }, // Hard difficulty
-            superhuman: { rows: 50, columns: 50, mines: 500 }, // Extreme difficulty
+            superhuman: { rows: 50, columns: 50, mines: 500 } // Extreme difficulty
         };
     }
 

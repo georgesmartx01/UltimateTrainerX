@@ -16,9 +16,9 @@ body {
   width: 480px;
   height: 520px;
   background: transparent;
-  background-color: rgb(17, 23, 68);
+  background-color: rgb(2, 2, 15);
   border: 2px solid rgb(25, 31, 82);
-  color: black;
+  color: white;
   border-radius: 10px;
   padding: 30px 40px;
   text-align: center;
@@ -43,12 +43,12 @@ body {
   border: 2px solid rgb(6, 8, 110); 
   border-radius: 15px;
   font-size: 16px;
-  color: black;
+  color: white;
   padding: 20px 45px 20px 20px;
 }
 
 .input-box input::placeholder {
-  color: black;
+  color: white;
 }
 
 .input-box i {
@@ -194,11 +194,12 @@ body {
 }
 
 .register-link p a {
-  color: black;
+  color: white;
   text-decoration: none;
   font-weight: bold;
 }
 
 .register-link p a:hover {
   color: slateblue;
+  transition: 0.2s ease;
 }

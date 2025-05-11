@@ -8,107 +8,52 @@
 h1 {
     margin-top: 80px;
     text-align: center;
+    color: white;
+    margin-bottom: 20px;
 }
 
-.wrapper {
-    margin-top: 20px;
-    width: 40em;
-    background-color: grey;
-    position: absolute;
-    padding: 2em;
-    transform: translateX(-50%);
-    left: 50%;
-    border-radius: 0.5em;
-}
-
-.game-container {
-    margin: 1.25em auto;
-    width: 33.75em;
-    border-radius: 0.6em;
-    overflow: hidden;
-    background-color: blue;
-}
-
-#information {
+.grid {
     display: grid;
-    width: 100%;
-    grid-template-columns: 1fr 1fr;
-}
-
-.player-wrappers {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.player1:before {
-    content: "";
-    display: inline-block;
-    width: 3.12em;
-    height: 3.12em;
-    border-radius: 50%;
-    background: radial-gradient(#fff04e 1.12em, #ffc400 1.25em);
-}
-
-.player2:before {
-    content: "";
-    display: inline-block;
-    width: 3.12em;
-    height: 3.12em;
-    border-radius: 50%;
-    background: radial-gradient(darkred 1.12em, #c00303 1.25em);
-}
-
-#player-turn {
-    margin: 1em 0;
-    text-align: right;
-}
-
-#player-turn span {
-    font-weight: bold;
-}
-
-.start-screen {
-    position: fixed;
-    top: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: slateblue;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.start-screen button {
-    background-color: darkblue;
-    padding: 1em 2em;
-    border: none;
-    outline: none;
-    border-radius: 2em;
-    cursor: pointer;
-}
-
-.grid-row {
+    grid-template-columns: repeat(7, 110px);
+    grid-template-rows: repeat(6, 110px);
+    width: 800px;
+    height: 700px;
     margin: 0 auto;
-    display: flex;
+    justify-content: center;
+    background-color: darkblue;
+    border: 10px solid navy;
 }
 
-.grid-box {
-    width: 5em;
-    height: 5em;
-    display: grid;
-    place-items: center;
-    background: radial-gradient(grey 1.37em, #416cea 1.43em);
+.cell {
+    border: 5px solid blue;
+    background-color: rgb(3, 3, 49);
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 50%;
+    outline: 5px solid blue;
     cursor: pointer;
 }
 
-.hide {
-    display: none;
+.cell:hover {
+    background-color: rgb(16, 16, 139);
 }
 
-#message {
-    margin-bottom: 1em;
-    color: blue;
-    font-size: 1.2em;
+.restart-btn {
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    background-color: blue;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+}
+
+.restart-btn:hover {
+    background-color: navy;
+    transition: all 0.3s ease;
 }

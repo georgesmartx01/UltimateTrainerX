@@ -1,13 +1,14 @@
-<?php 
-
+<?php
 session_start();
+ob_start();
+include "connectdb.php";
 if(isset($_SESSION['username']) && isset($_SESSION['User_ID'])){
     header("Location: accountpage.php");
     exit();
 }
 
 if(isset($_GET['error'])){
-    // XSS stands for Cross-Site Scripting
+    // XSS stands for Cross Site Scripting
     // Sanitize the message to prevent XSS
     $error = htmlspecialchars($_GET['error']);
     // Display a JavaScript alert with the message
@@ -35,16 +36,25 @@ if(isset($_GET['msg'])){
 <body>
     <!-- Login Form -->
     <div class="wrapper">
-        <form>
+        <?php
+        if(isset($error)) {
+            echo "<p style='color:red;'>$error</p>";
+        } 
+        
+        if(isset($success_message)){
+            echo "<p style='color:green;'>$success_message</p>";
+        }
+        ?>
+        <form method="post" action="user-login.php">
             <br>
             <h1>Login Form</h1>
             <div class="input-box">
-                <input type="text" placeholder="Username" required>
+                <input type="text" placeholder="Username" name="username" required>
                 <i class="fa fa-user"></i>
             </div>
             
             <div class="input-box">
-                <input type="password" placeholder="Enter your password" name="pass" value="Password" id="loginPassInput" required>
+                <input type="password" placeholder="Enter your password" name="password" value="Password" id="loginPassInput" required>
                 <i class="fa-solid fa-lock"></i>
                 <i class="fa-solid fa-eye-slash" id="toggleLoginPassword" onclick="togglePasswordVisibility(event, 'loginPassInput')"></i>
             </div>
@@ -57,41 +67,27 @@ if(isset($_GET['msg'])){
                 <a href="forgot-password.php">Forgot Password</a>
             </div>
             <button id="generate-pass-btn">Generate Password</button>
-            <button type="submit" class="login-btn">Login</button>
+            <button type="submit" name="loginbtn" class="login-btn">Login</button>
 
             <div class="register-link">
                 <p>Don't have an account? <a href="register-user.php">Click to register</a></p>
             </div>       
         </form>
-    </div>
-
-    <?php include "password-generator.php"; ?>
-
-    <?php 
-    if(isset($error)) {
-        echo "<p style='color:red;'>$error</p>";
-    } 
-    
-    if(isset($success_message)){
-        echo "<p style='color:green;'>$success_message</p>";
-    }?>
-    
-    <?php
+        <?php
     if(isset($_POST['loginbtn'])) {
         $usernameSubmit = $_POST['username'];
         $passwordSubmit = $_POST['password'];
-        
+    
         $login_query = "SELECT * FROM `users` WHERE Username = :username";
         $stmt = $pdo->prepare($login_query);
         $stmt->bindParam(':username', $usernameSubmit);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+    
         if($user) {
             if(password_verify($passwordSubmit, $user['Password'])) {
                 $_SESSION['username'] = $user['Username'];
                 $_SESSION['User_ID'] = $user['User_ID'];
-                
                 if(isset($_SESSION['prev_page'])){
                     $prevpage = $_SESSION['prev_page'];
                     header("Location: $prevpage");
@@ -99,10 +95,9 @@ if(isset($_GET['msg'])){
                     header("Location: accountpage.php");
                 }
             } else {
-                if($passwordSubmit == $user['Password']) {
+                if($passwordSubmit === $user['Password']) {
                     $_SESSION['username'] = $user['Username'];
                     $_SESSION['User_ID'] = $user['User_ID'];
-                    
                     if(isset($_SESSION['prev_page'])){
                         $prevpage = $_SESSION['prev_page'];
                         header("Location: $prevpage");
@@ -114,18 +109,22 @@ if(isset($_GET['msg'])){
                 } else {
                     $error = 'Incorrect password. Please try again.';
                     echo "<script>alert($error);</script>";
-                    header("Location: user-login.php?error=".$error);
+                    header("Location: login.php?error=".$error);
                     exit();
                 }
             }
         } else {
-            $error = 'User not found. Please check your username.';
+            $error = 'It appears the current user cannot be found! Please check your username and try again.';
             header("Location: user-login.php?error=".$error);
             exit();
         }
     }
     ?>
+    </div>
+
+    <?php include "password-generator.php"; ?>
     <script src="JavaScript/password-generator/password-generator.js"></script>
     <script src="JavaScript/toggle-password-visibility/toggle-password-visibility.js"></script>
 </body>
 </html>
+<?php ob_end_flush(); ?>
