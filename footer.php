@@ -29,7 +29,7 @@
                 <h3>Contact Info</h3>
                 <p>Email: <a href="mailto:ultimatetrainerx@gmail.com">ultimatetrainerx@gmail.com</a></p>
                 <p>Phone number: <a href="tel:+440123456789">+44 (0) 123456789</a></p>
-                <p>You can reach out to me via e-mail or phone for any inquiries. </p>
+                <p>You can reach out to us via e-mail or phone for any inquiries. </p>
             </div>
 
             <div class="countries">
