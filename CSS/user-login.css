@@ -16,7 +16,7 @@ body {
   width: 480px;
   height: 520px;
   background: transparent;
-  background-color: rgb(2, 2, 15);
+  background-color: rgb(3, 3, 48);
   border: 2px solid rgb(25, 31, 82);
   color: white;
   border-radius: 10px;
@@ -202,4 +202,28 @@ body {
 .register-link p a:hover {
   color: slateblue;
   transition: 0.2s ease;
+}
+
+.error-box {
+  background: #ffdddd;
+  color: #a30000;
+  padding: 10px;
+  margin: 10px auto;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.success-box {
+  background: #ddffdd;
+  color: #007700;
+  padding: 10px;
+  margin: 10px auto;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
 }

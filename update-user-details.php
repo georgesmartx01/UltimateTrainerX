@@ -1,94 +1,87 @@
 <?php
-// Include database connection file
+session_start();
 include "connectdb.php";
 
-// Start session
-session_start();
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Collect input
+    $username     = trim($_POST['username']);
+    $password     = $_POST['password'];
+    $firstname    = trim($_POST['firstname']);
+    $second_name  = trim($_POST['second_name']);
+    $last_name    = trim($_POST['last_name']);
 
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $forename = $_POST['forename'];
-    $second_name = $_POST['second_name'];
-    $last_name = $_POST['last_name'];
-    
-    // Validate form data
-    if (!empty($password)) {
-        // Password field is not empty, perform password validation
-        if (preg_match('/^(?=.*\d)(?=.*[A-Za-z])(?=.*[!@#$%^&*()-_=+{};:,<.>]).{8,}$/', $password)) {
-            // Password meets criteria, proceed with updating user details
+    $userID = $_SESSION['User_ID'] ?? null;
 
-            // Check if the new username is unique
-            $check_username_query = "SELECT COUNT(*) AS count FROM users WHERE Username = :username AND User_ID != :userID";
-            $check_username_stmt = $pdo->prepare($check_username_query);
-            $check_username_stmt->bindParam(':username', $username, PDO::PARAM_STR);
-            $check_username_stmt->bindParam(':userID', $_SESSION['User_ID'], PDO::PARAM_INT);
-            $check_username_stmt->execute();
-            $result = $check_username_stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$userID) {
+        $_SESSION['update_error'] = "You must be logged in to update details.";
+        header("Location: user-login.php");
+        exit();
+    }
 
-            if ($result['count'] > 0) {
-                // Username already exists, redirect back to account page with error message
-                $_SESSION['update_error'] = "Username already exists. Please choose a different username.";
-                header("Location: aaccountpage.php");
+    // Check if username already exists (excluding current user)
+    $check = $pdo->prepare("SELECT COUNT(*) FROM users WHERE Username = :username AND User_ID != :userID");
+    $check->execute([':username' => $username, ':userID' => $userID]);
+    if ($check->fetchColumn() > 0) {
+        $_SESSION['update_error'] = "Username already exists. Please choose another.";
+        header("Location: accountpage.php");
+        exit();
+    }
+
+    try {
+        if (!empty($password)) {
+            // Validate password
+            if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/', $password)) {
+                $_SESSION['update_error'] = "Password must be at least 8 characters long and include a number, letter, and special character.";
+                header("Location: accountpage.php");
                 exit();
-            } else {
-                // Hash the password
-                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-                // Update user details in the database
-                $update_user_details_query = "UPDATE users SET Username = :username, Password = :password, Fore_name = :forename, Second_Name = :second_name, Last_Name = :last_name, User_ID = :userID";
-                $stmt = $pdo->prepare($update_user_details_query);
-                $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-                $stmt->bindParam(':password', $hashed_password, PDO::PARAM_STR); // Use hashed password
-                $stmt->bindParam(':forename', $forename, PDO::PARAM_STR);
-                $stmt->bindParam(':second_name', $second_name, PDO::PARAM_STR);
-                $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
-                $stmt->bindParam(':userID', $_SESSION['User_ID'], PDO::PARAM_INT);
-
-                // Execute the update query
-                if ($stmt->execute()) {
-                    // Redirect back to the user account page after successful update
-                    $_SESSION['update_success'] = "User details updated successfully.";
-                    header("Location: aaccountpage.php");
-                    exit();
-                } else {
-                    // Handle error
-                    $_SESSION['update_error'] = "Error updating user details.";
-                    header("Location: aaccountpage.php");
-                    exit();
-                }
             }
-        } else {
-            // Password validation failed, redirect back to account page with error message
-            $_SESSION['update_error'] = "Password must contain at least 8 characters, including at least one number, one special character, and one letter.";
-            header("Location: aaccountpage.php");
-            exit();
-        }
-    } else {
-        // No password entered, proceed with updating user details without updating the password
-        // Update user details in the database (excluding the password)
-        $update_user_details_query = "UPDATE users SET Username = :username, Fore_name = :forename, Second_Name = :second_name, Last_Name = :last_name, User_ID = :userID";
-        $stmt = $pdo->prepare($update_user_details_query);
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->bindParam(':forename', $forename, PDO::PARAM_STR);
-        $stmt->bindParam(':second_name', $second_name, PDO::PARAM_STR);
-        $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
-        $stmt->bindParam(':userID', $_SESSION['User_ID'], PDO::PARAM_INT);
 
-        // Execute the update query
-        if ($stmt->execute()) {
-            // Redirect back to the user account page after successful update
-            $_SESSION['update_success'] = "User details updated successfully.";
-            header("Location: accountpage.php");
-            exit();
+            // Update with password
+            $query = "UPDATE users 
+                      SET Username = :username, 
+                          Password = :password, 
+                          Fore_name = :firstname, 
+                          Second_Name = :second_name, 
+                          Last_Name = :last_name 
+                      WHERE User_ID = :userID";
+
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([
+                ':username'    => $username,
+                ':password'    => password_hash($password, PASSWORD_DEFAULT),
+                ':firstname'   => $firstname,
+                ':second_name' => $second_name,
+                ':last_name'   => $last_name,
+                ':userID'      => $userID
+            ]);
         } else {
-            // Handle error
-            $_SESSION['update_error'] = "Error updating user details.";
-            header("Location: accountpage.php");
-            exit();
+            // Update without password
+            $query = "UPDATE users 
+                      SET Username = :username, 
+                          Fore_name = :firstname, 
+                          Second_Name = :second_name, 
+                          Last_Name = :last_name 
+                      WHERE User_ID = :userID";
+
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([
+                ':username'    => $username,
+                ':firstname'   => $firstname,
+                ':second_name' => $second_name,
+                ':last_name'   => $last_name,
+                ':userID'      => $userID
+            ]);
         }
+
+        $_SESSION['update_success'] = "Details updated successfully.";
+        $_SESSION['username'] = $username; // Update session if name changed
+        header("Location: accountpage.php");
+        exit();
+
+    } catch (PDOException $e) {
+        $_SESSION['update_error'] = "Update failed: " . $e->getMessage();
+        header("Location: accountpage.php");
+        exit();
     }
 }
 ?>

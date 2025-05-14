@@ -1,197 +1,165 @@
-/**
- * Dictionary of possible secret words.
- * These words are randomly selected for the game.
- */
-const dictionary = ['earth', 'plane', 'crane', 'audio', 'house', ''];
+// Word list for the game (random selection from various themes)
+const wordList = [
+  "APPLE", "BRAVE", "CRISP", "PLANE", "SHINE", "GHOST", "TRAIL", "DRIVE", "GRAPE", "WORLD", "BLACK",
+  "LIGHT", "RIVER", "STONE", "FLAME", "HEART", "OCEAN", "STORM", "MOUNT", "WINGS", "BLOOM", "SPARK",
+  "CHESS", "MIRTH", "CROWN", "GLIDE", "QUIRK", "BLEND", "FROST", "LATCH", "VIVID", "BREEZE", "SHELL",
+  "ZEBRA", "TIGER", "LATCH", "MARSH", "DUSKY", "HUMOR", "PLUME", "NORTH", "SOUTH", "EAST", "WEST",
+  "SUMMER", "WINTER", "AUTUMN", "SPRING", "HAPPY", "GRUMPY", "DREAM", "NIGHT", "FABLE", "STARRY",
+  "CANDLE", "VIOLET", "MAGNET", "SILVER", "PLANET", "GALAXY", "NEBULA", "SATURN", "ORBIT", "SOLAR",
+  "DANCER", "LANTERN", "CASTLE", "MEADOW", "ECHO", "MIRROR", "WHALE", "CYPRESS", "CLOUD", "RUSTLE",
+  "PINE", "JUMPY", "WONDER", "BUBBLE", "SHADOW", "CANYON", "VELVET", "STARRY", "MOSSY", "RIDDLE"
+];
 
-/**
- * Game state object storing essential properties:
- * - `secret`: The randomly chosen word from `dictionary`.
- * - `grid`: A 6-row by 5-column grid representing user guesses.
- * - `currentRow`: Tracks the active row where the player is guessing.
- * - `currentColumn`: Tracks the active column for letter input.
- */
-const state = {
-    secret: dictionary[Math.floor(Math.random() * dictionary.length)],
-    grid: Array(6).fill().map(() => Array(5).fill('')),
-    currentRow: 0,
-    currentColumn: 0
-};
+// Selects a random word from the list for the game session
+const word = wordList[Math.floor(Math.random() * wordList.length)];
 
-/**
- * Updates the grid UI by assigning guessed letters to corresponding cells.
- * Loops through all grid rows and columns to update displayed content.
- */
-function updateGrid() {
-    for (let i = 0; i < state.grid.length; i++) {
-        for (let j = 0; j < state.grid[i].length; j++) {
-            const cell = document.getElementById(`cell${i}${j}`);
-            cell.textContent = state.grid[i][j];
-        }
+// Game variables
+let currentRow = 0; // Tracks number of guesses (max 6)
+let currentCol = 0; // Tracks letter position within a guess
+let board = []; // Stores the board state
+
+// Initializes the game once the page loads
+document.addEventListener("DOMContentLoaded", () => {
+  initBoard();
+  initKeyboard();
+  document.addEventListener("keydown", handleKeyPress);
+});
+
+// Creates the game board with empty tiles
+function initBoard() {
+  const boardEl = document.getElementById("board");
+  board = []; // Clear board state
+
+  for (let r = 0; r < 6; r++) {
+    const row = [];
+    for (let c = 0; c < 5; c++) {
+      const tile = document.createElement("div");
+      tile.classList.add("tile");
+      tile.setAttribute("id", `tile-${r}-${c}`);
+      boardEl.appendChild(tile);
+      row.push(""); // Initialize row with empty values
     }
+    board.push(row);
+  }
 }
 
-/**
- * Creates and appends a cell element for the word grid.
- * @param {HTMLElement} container - The parent container where cells are appended.
- * @param {number} row - Row index of the cell.
- * @param {number} column - Column index of the cell.
- * @param {string} letter - Letter to display in the cell (default is empty).
- * @returns {HTMLElement} - The newly created cell element.
- */
-function drawCell(container, row, column, letter = '') {
-    const cell = document.createElement('div');
-    cell.className = 'cell';
-    cell.id = `cell${row}${column}`;
-    cell.textContent = letter;
+// Generates the on-screen keyboard dynamically
+function initKeyboard() {
+  const keys = [
+    ["Q","W","E","R","T","Y","U","I","O","P"],
+    ["A","S","D","F","G","H","J","K","L"],
+    ["Enter","Z","X","C","V","B","N","M","Back"]
+  ];
+  const keyboard = document.getElementById("keyboard");
 
-    container.appendChild(cell);
-    return cell;
+  keyboard.innerHTML = ""; // Clear existing keyboard
+
+  keys.forEach(row => {
+    const rowEl = document.createElement("div");
+    rowEl.classList.add("keyboard-row");
+    row.forEach(key => {
+      const keyEl = document.createElement("button");
+      keyEl.textContent = key;
+      keyEl.classList.add("key");
+      keyEl.addEventListener("click", () => handleKey(key));
+      rowEl.appendChild(keyEl);
+    });
+    keyboard.appendChild(rowEl);
+  });
 }
 
-/**
- * Creates and renders the word grid inside the given container.
- * @param {HTMLElement} container - The parent element for the grid.
- */
-function drawGrid(container) {
-    const grid = document.createElement('div');
-    grid.className = 'grid';
+// Handles key presses (both physical and on-screen)
+function handleKeyPress(e) {
+  if (e.key === "Backspace") return handleKey("Back");
+  if (e.key === "Enter") return handleKey("Enter");
+  if (/^[a-zA-Z]$/.test(e.key)) return handleKey(e.key.toUpperCase()); // Allow only letters
+}
 
-    for (let i = 0; i < 6; i++) {
-        for (let j = 0; j < 5; j++) {
-            drawCell(grid, i, j);
-        }
+// Handles input logic (typing, deleting, and submitting guesses)
+function handleKey(key) {
+  if (currentRow >= 6) return; // Stop input if max guesses reached
+  
+  if (key === "Back") {
+    if (currentCol > 0) {
+      currentCol--;
+      board[currentRow][currentCol] = "";
+      updateTile(currentRow, currentCol, "");
     }
-    container.appendChild(grid);
-}
-
-/**
- * Registers keyboard events for player interaction.
- * - Enter: Submits the current guess.
- * - Backspace: Deletes the last entered letter.
- * - Letter keys: Adds a letter to the grid.
- */
-function registerKeyboardEvents() {
-    document.body.onkeydown = (event) => {
-        const key = event.key;
-        if (key === 'Enter') {
-            if (state.currentColumn === 5) {
-                const word = getCurrentWord();
-                if (isWordValid(word)) {
-                    revealWord(word);
-                    state.currentRow++;
-                    state.currentColumn = 0;
-                } else {
-                    alert('Not a valid word!');
-                }
-            }
-        }
-
-        if (key === 'Backspace') {
-            removeLetter();
-        }
-
-        if (isLetter(key)) {
-            addLetter(key);
-        }
-
-        updateGrid();
-    };
-}
-
-/**
- * Constructs the current guessed word from the active row.
- * @returns {string} - The current word being guessed.
- */
-function getCurrentWord() {
-    return state.grid[state.currentRow].reduce((previous, current) => previous + current);
-}
-
-/**
- * Checks if the guessed word exists in the dictionary.
- * @param {string} word - The guessed word to validate.
- * @returns {boolean} - Returns true if the word is valid, otherwise false.
- */
-function isWordValid(word) {
-    return dictionary.includes(word);
-}
-
-/**
- * Reveals correctness of the guessed word by updating cell styles.
- * - Correct letters are marked (`right` class).
- * - Incorrect letters in the word are marked (`wrong` class).
- * - Incorrect letters not in the word are marked (`empty` class).
- * @param {string} guess - The guessed word.
- */
-function revealWord(guess) {
-    const row = state.currentRow;
-    const animation_duration = 500; // duration in milliseconds
-    
-    for (let i = 0; i < 5; i++) {
-        const cell = document.getElementById(`cell${row}${i}`);
-        const letter = cell.textContent;
-
-        setTimeout(() => {
-            if (letter === state.secret[i]) {
-                cell.classList.add('right');
-            } else if (state.secret.includes(letter)) {
-                cell.classList.add('wrong');
-            } else {
-                cell.classList.add('empty');
-            }
-        }, ((i + 1) * animation_duration) / 2);
-
-        cell.classList.add('animated');
-        cell.style.animationDelay = `${(i * animation_duration) / 2}ms`;
+  } else if (key === "Enter") {
+    if (currentCol === 5) {
+      checkWord(); // Validate word after full entry
     }
-
-    const isWinner = state.secret === guess;
-    const isGameOver = state.currentRow === 5;
-
-    setTimeout(() => {
-        if (isWinner) {
-            alert('Congratulations! You won the game!');
-        } else if (isGameOver) {
-            alert(`Better luck next time! The word was ${state.secret}.`);
-        }
-    }, 3 * animation_duration);
+  } else if (/^[A-Z]$/.test(key)) {
+    if (currentCol < 5) {
+      board[currentRow][currentCol] = key;
+      updateTile(currentRow, currentCol, key);
+      currentCol++;
+    }
+  }
 }
 
-/**
- * Determines whether a key press is a valid letter.
- * @param {string} key - The key pressed by the user.
- * @returns {boolean} - Returns true if the key is a letter.
- */
-function isLetter(key) {
-    return key.length === 1 && key.match(/[a-z]/i);
+// Updates a tile with the entered letter
+function updateTile(r, c, letter) {
+  const tile = document.getElementById(`tile-${r}-${c}`);
+  tile.textContent = letter;
+  tile.classList.add("filled");
 }
 
-/**
- * Adds a letter to the current row if within limit.
- * @param {string} letter - The letter to add.
- */
-function addLetter(letter) {
-    if (state.currentColumn === 5) return;
-    state.grid[state.currentRow][state.currentColumn] = letter;
-    state.currentColumn++;
+// Checks guessed word against the correct word
+function checkWord() {
+  const guess = board[currentRow].join("");
+  const feedback = Array(5).fill("absent"); // Default feedback
+  const targetLetters = word.split("");
+
+  // First pass: Mark correct letters
+  for (let i = 0; i < 5; i++) {
+    if (board[currentRow][i] === word[i]) {
+      feedback[i] = "correct";
+      targetLetters[i] = null;
+    }
+  }
+
+  // Second pass: Mark letters that are present but in the wrong position
+  for (let i = 0; i < 5; i++) {
+    if (feedback[i] !== "correct") {
+      const index = targetLetters.indexOf(board[currentRow][i]);
+      if (index !== -1) {
+        feedback[i] = "present";
+        targetLetters[index] = null;
+      }
+    }
+  }
+
+  // Apply feedback to tiles and update keyboard
+  for (let i = 0; i < 5; i++) {
+    const tile = document.getElementById(`tile-${currentRow}-${i}`);
+    tile.classList.add(feedback[i]); // Apply styles based on correctness
+    tile.style.animation = `flip 0.4s ease ${i * 0.15}s both`;
+  }
+
+  updateKeyboard(); // Update keyboard based on feedback
+
+  // Check if player won or needs to continue
+  if (guess === word) {
+    setTimeout(() => alert("🎉 You got it!"), 1200);
+  } else {
+    currentRow++;
+    currentCol = 0;
+    if (currentRow >= 6) {
+      setTimeout(() => alert(`Game over! The word was ${word}`), 500);
+    }
+  }
 }
 
-/**
- * Removes the last entered letter from the current row.
- */
-function removeLetter() {
-    if (state.currentColumn === 0) return;
-    state.grid[state.currentRow][state.currentColumn - 1] = '';
-    state.currentColumn--;
-}
+// Updates keyboard styling based on guessed letters
+function updateKeyboard() {
+  const keyButtons = document.querySelectorAll(".key");
+  keyButtons.forEach(btn => {
+    btn.classList.remove("correct", "present", "absent"); // Reset previous styles
+  });
 
-/**
- * Initializes the game by drawing the grid and registering event listeners.
- */
-function startGame() {
-    const game = document.getElementById('game');
-    drawGrid(game);
-    registerKeyboardEvents();
+  board[currentRow].forEach((letter, i) => {
+    const btn = [...keyButtons].find(b => b.textContent === letter);
+    if (btn) btn.classList.add(feedback[i]);
+  });
 }
-
-startGame();

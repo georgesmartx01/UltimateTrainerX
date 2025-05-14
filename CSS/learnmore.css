@@ -1,0 +1,131 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    padding-top: 30px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.learnmore-header {
+    text-align: center;
+    background: linear-gradient(to right, rgb(9, 7, 105), rgb(10, 29, 83), rgb(4, 4, 65), rgb(3, 3, 48));
+    padding: 40px;
+    border-radius: 8px;
+    margin-top: 40px;
+    margin-bottom: 5px;
+}
+
+.learnmore-header h1 {
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+}
+
+.learnmore-header p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Section Styles */
+section {
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    background: linear-gradient(rgb(3, 3, 48));
+}
+
+section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+section p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+section ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+section ul li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+/* FAQ Styles */
+.faq ul {
+    padding-left: 20px;
+}
+
+.faq ul li {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.faq strong {
+    color: #2e3a59;
+}
+
+/* Contact Info Styles */
+.contact-info ul {
+    padding-left: 20px;
+}
+
+.contact-info ul li {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.contact-info ul li i {
+    margin-right: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .learnmore-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .learnmore-header p {
+        font-size: 1rem;
+    }
+
+    section h2 {
+        font-size: 1.5rem;
+    }
+
+    section p, section ul li {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .learnmore-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .learnmore-header p {
+        font-size: 0.9rem;
+    }
+
+    section h2 {
+        font-size: 1.2rem;
+    }
+
+    section p, section ul li {
+        font-size: 0.9rem;
+    }
+}

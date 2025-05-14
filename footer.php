@@ -43,5 +43,16 @@
 
         <p classs="copyright">&copy; <?php echo date("Y"); ?> All rights reserved.</p>
     </footer>
+
+    <script>
+        window.addEventListener("scroll", function() {
+        var scrollPos = window.scrollY + window.innerHeight; // Current scroll position + height of the viewport
+        var docHeight = document.documentElement.scrollHeight; // Total document height
+
+        if (scrollPos >= docHeight - 50) {  // Trigger when you're within 50px of the bottom
+            document.querySelector("footer").classList.add("show");
+        }
+    });
+    </script>
 </body>
 </html>

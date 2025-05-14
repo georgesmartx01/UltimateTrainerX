@@ -1,3 +1,4 @@
+/* General Reset */
 * {
     margin: 0;
     padding: 0;
@@ -5,9 +6,95 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Body and Main Container */
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 150vh;
+}
+
+main {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    background: linear-gradient(to right, rgb(4, 4, 66), rgb(8, 8, 89), rgb(4, 4, 90), rgb(3, 3, 48));
+    color: white;
+    padding: 40px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+}
+
+/* Content Section */
+.about-content {
+    background: linear-gradient(to right, rgb(4, 7, 38), rgb(2, 2, 51), rgb(6, 6, 68));
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.about-content h2 {
+    font-size: 2rem;
+    color: white;
+    margin-top: 20px;
+}
+
+.about-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.about-content ul {
+    margin-left: 20px;
+    list-style-type: none;
+}
+
+.about-content ul li {
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+.about-content a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.about-content a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .about-content {
+        padding: 20px;
+    }
+
+    .about-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .about-content p, .about-content ul li {
+        font-size: 1rem;
+    }
 }

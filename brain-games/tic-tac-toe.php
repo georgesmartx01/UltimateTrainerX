@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../CSS/brain-games/tic-tac-toe.css">
-    <link rel="stylesheet" href="../CSS/navbar.css">
-    <title>Tic-Tac-Toe</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="../CSS/navbar.css">
+  <link rel="stylesheet" href="../CSS/brain-games/tic-tac-toe.css">
 </head>
-
-<?php 
-include "../navbar.php";
-?>
-
 <body>
-    <div id="game-container">
-        <h1>Tic-Tac-Toe</h1>
-        <div id="board"></div>
-        <div id="status"></div>
+  <?php include "../navbar.php"; ?>
+  <div class="container">
+    <h1>Tic Tac Toe</h1>
+    <div id="status" class="status"></div>
+    <div id="board" class="board"></div>
+
+    <div class="controls">
+      <button id="restart-btn">Restart</button>
+      <button id="toggle-mode">Switch to 2-Player</button>
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium" selected>Medium</option>
+        <option value="hard">Hard</option>
+      </select>
     </div>
 
-    <div id="popup">
-        <div id="popup-content">
-            <h2 id="popup-title"></h2>
-            <p id="popup-message"></p>
-            <button id="restart-btn">Play Again</button>
-        </div>
+    <div class="scores">
+      <div>Player X Wins: <span id="score-x">0</span></div>
+      <div>Player O Wins: <span id="score-o">0</span></div>
     </div>
+  </div>
 
-    <script src="../JavaScript/brain-games/tic-tac-toe/tic-tac-toe.js"></script>
-    <script src="../JavaScript/navbar/nav-behaviour.js"></script>
+  <script src="../JavaScript/navbar/nav-behaviour.js"></script>
+  <script src="../JavaScript/brain-games/tic-tac-toe/tic-tac-toe.js"></script>
 </body>
 </html>

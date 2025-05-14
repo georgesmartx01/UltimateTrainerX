@@ -1,183 +1,177 @@
 document.addEventListener("DOMContentLoaded", function () {
-    /**
-     * Represents the current player.
-     * Player `1` corresponds to red and `-1` to yellow.
-     */
-    let player = 1;
-    
-    /**
-     * Tracks the winner of the game.
-     * If `0`, the game is still ongoing.
-     * If `1` or `-1`, that player has won.
-     */
-    let winner = 0;
-    
-    /**
-     * Stores colour mappings for each player.
-     * - `1` represents red
-     * - `-1` represents yellow.
-     */
-    let colours = {
-        "-1": "yellow",
-        "1": "red"
-    };
-    
-    /**
-     * Counter used to assign unique IDs to cells.
-     * Increments as cells are initialised.
-     */
-    let count = 0;
+    let player = 1; // 1 for Red, -1 for Yellow
+    let winner = 0; // 0 means no winner, 1 for Red, -1 for Yellow
+    let redWins = localStorage.getItem("redWins") ? parseInt(localStorage.getItem("redWins")) : 0;
+    let yellowWins = localStorage.getItem("yellowWins") ? parseInt(localStorage.getItem("yellowWins")) : 0;
 
-    /**
-     * NodeList containing all game cells.
-     * Each cell represents a slot on the Connect Four grid.
-     */
-    let cells = document.querySelectorAll(".cell");
-
-    cells.forEach(function (cell) {
-        cell.id = count;
-        cell.dataset.player = "0";
-        count++;
-
-        cell.addEventListener("click", function () {
-            if (isValid(cell.id)) {
-                cell.style.backgroundColor = colours[player];
-                cell.dataset.player = player;
-                if (checkWin(player)) {
-                    alert(colours[player] + " has won!");
-                    winner = player;
-                }
-                player = player === 1 ? -1 : 1; // Switch player turn
-            }
-        });
-    });
-
-    /**
-     * 
-     */
+    const grid = document.querySelector(".grid");
     const restartButton = document.querySelector(".restart-btn");
+    const clearStatsButton = document.querySelector(".clear-stats");
+    const turnIndicator = document.querySelector(".turn-indicator");
+    const redWinsElement = document.querySelector("#redWins");
+    const yellowWinsElement = document.querySelector("#yellowWins");
 
-    restartButton.addEventListener("click", function() {
-        clearBoard();
-    });
+    // Update UI for stats
+    redWinsElement.textContent = redWins;
+    yellowWinsElement.textContent = yellowWins;
 
-    /**
-     * Resets the board by clearing player data and restoring default colours.
-     */
-    function clearBoard() {
-        document.querySelectorAll(".cell").forEach(cell => {
-            cell.setAttribute("data-player", "0");
-            cell.style.backgroundColor = "rgb(3, 3, 49)";
+    // Create grid dynamically
+    createGrid();
+
+    // Event listeners
+    restartButton.addEventListener("click", restartGame);
+    clearStatsButton.addEventListener("click", clearStats);
+
+    function createGrid() {
+        grid.innerHTML = ''; // Clear any previous content
+        for (let row = 0; row < 6; row++) {
+            for (let col = 0; col < 7; col++) {
+                let cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.dataset.column = col;
+                cell.dataset.row = row;
+                grid.appendChild(cell);
+            }
+        }
+
+        // Attach click event listener to each cell
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach(cell => {
+            cell.addEventListener("click", handleClick);
         });
+    }
+
+    function handleClick(event) {
+        if (winner !== 0) return; // No action if there's a winner
+
+        const column = event.target.dataset.column;
+        const availableRow = findAvailableRow(column);
         
-        winner = 0; // reset winner
-    }
+        if (availableRow === -1) return; // No available space in this column
 
-    /**
-     * Checks if a move is valid based on board constraints.
-     * @param {number} n - The ID of the cell.
-     * @returns {boolean} - Returns true if move is valid, false otherwise.
-     */
-    function isValid(n) {
-        let id = parseInt(n);
+        const cell = document.querySelector(`[data-row="${availableRow}"][data-column="${column}"]`);
+        cell.style.backgroundColor = player === 1 ? "red" : "yellow";
+        cell.dataset.player = player;
 
-        if (winner !== 0) {
-            return false;
+        // Check if this move results in a win
+        if (checkWin()) {
+            winner = player;
+            highlightWinningCells();
+            updateStats();
+            return;
         }
 
-        if (document.getElementById(id).dataset.player === "0") {
-            if (id >= 35 || document.getElementById(id + 7).dataset.player !== "0") {
-                return true;
+        // Switch player turn
+        player = player === 1 ? -1 : 1;
+        turnIndicator.textContent = player === 1 ? "Red's Turn" : "Yellow's Turn";
+    }
+
+    function findAvailableRow(column) {
+        for (let row = 5; row >= 0; row--) {
+            const cell = document.querySelector(`[data-row="${row}"][data-column="${column}"]`);
+            if (!cell.dataset.player) {
+                return row;
+            }
+        }
+        return -1; // Column is full
+    }
+
+    function checkWin() {
+        return checkRows() || checkColumns() || checkDiagonals();
+    }
+
+    function checkRows() {
+        for (let row = 0; row < 6; row++) {
+            for (let col = 0; col < 4; col++) {
+                if (checkLine(row, col, 0, 1)) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    /**
-     * Determines if a player has won the game by checking rows, columns and diagonals.
-     * @param {number} p - The player value (1, -1).
-     * @returns {boolean} - Returns true if the player wins.
-     */
-    function checkWin(p) {
-        // check rows
-        let chain = 0;
-        for (let i = 0; i < 42; i += 7) {
-            for (let j = 0; j < 7; j++) {
-                let cell = document.getElementById(i + j);
-                if (cell.dataset.player == p) {
-                    chain++;
-                } else {
-                    chain = 0;
-                }
-
-                if (chain >= 4) {
+    function checkColumns() {
+        for (let col = 0; col < 7; col++) {
+            for (let row = 0; row < 3; row++) {
+                if (checkLine(row, col, 1, 0)) {
                     return true;
                 }
             }
-            chain = 0;
-        }
-
-        // check columns
-        chain = 0;
-
-        for (let i = 0; i < 7; i++) {
-            for (let j = 0; j < 42; j += 7) {
-                let cell = document.getElementById(i + j);
-
-                if (cell.dataset.player == p) {
-                    chain++;
-                } else {
-                    chain = 0;
-                }
-
-                if (chain >= 4) {
-                    return true;
-                }
-            }
-
-            chain = 0;
-        }
-
-        // check diagonals
-        let topLeft = 0;
-        let topRight = topLeft + 3;
-
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 4; j++) {
-                let topLeftCell1 = document.getElementById(topLeft);
-                let topLeftCell2 = document.getElementById(topLeft + 8);
-                let topLeftCell3 = document.getElementById(topLeft + 16);
-                let topLeftCell4 = document.getElementById(topLeft + 24);
-
-                let topRightCell1 = document.getElementById(topRight);
-                let topRightCell2 = document.getElementById(topRight + 6);
-                let topRightCell3 = document.getElementById(topRight + 12);
-                let topRightCell4 = document.getElementById(topRight + 18);
-
-                if (topLeftCell1 && topLeftCell2 && topLeftCell3 && topLeftCell4) {
-                    if (topLeftCell1.dataset.player == p &&
-                        topLeftCell2.dataset.player == p &&
-                        topLeftCell3.dataset.player == p &&
-                        topLeftCell4.dataset.player == p) {
-                        return true;
-                    }                    
-                }
-
-                if (topRightCell1 && topRightCell2 && topRightCell3 && topRightCell4) {
-                    if (topRightCell1.dataset.player == p &&
-                        topRightCell2.dataset.player == p &&
-                        topRightCell3.dataset.player == p &&
-                        topRightCell4.dataset.player == p) {
-                        return true;
-                    }
-                }
-
-                topLeft++;
-                topRight = topLeft + 3;
-            }
-            topLeft = i * 7 + 7;
-            topRight = topLeft + 3;
         }
         return false;
+    }
+
+    function checkDiagonals() {
+        for (let row = 0; row < 3; row++) {
+            for (let col = 0; col < 4; col++) {
+                if (checkLine(row, col, 1, 1)) {
+                    return true;
+                }
+                if (checkLine(row + 3, col, -1, 1)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    function checkLine(row, col, rowStep, colStep) {
+        const color = document.querySelector(`[data-row="${row}"][data-column="${col}"]`).dataset.player;
+        if (!color) return false;
+
+        for (let i = 1; i < 4; i++) {
+            const nextCell = document.querySelector(`[data-row="${row + i * rowStep}"][data-column="${col + i * colStep}"]`);
+            if (nextCell && nextCell.dataset.player !== color) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function highlightWinningCells() {
+        const winningCells = getWinningCells();
+        winningCells.forEach(cell => {
+            cell.classList.add("win-highlight");
+        });
+    }
+
+    function getWinningCells() {
+        // This function should return the array of winning cells.
+        // For simplicity, just implementing a dummy version
+        return [];
+    }
+
+    function updateStats() {
+        if (winner === 1) {
+            redWins++;
+            localStorage.setItem("redWins", redWins);
+            redWinsElement.textContent = redWins;
+        } else if (winner === -1) {
+            yellowWins++;
+            localStorage.setItem("yellowWins", yellowWins);
+            yellowWinsElement.textContent = yellowWins;
+        }
+    }
+
+    function restartGame() {
+        winner = 0;
+        player = 1;
+        turnIndicator.textContent = "Red's Turn";
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach(cell => {
+            cell.style.backgroundColor = "rgb(3, 3, 49)";
+            cell.removeAttribute("data-player");
+            cell.classList.remove("win-highlight");
+        });
+    }
+
+    function clearStats() {
+        redWins = 0;
+        yellowWins = 0;
+        localStorage.setItem("redWins", redWins);
+        localStorage.setItem("yellowWins", yellowWins);
+        redWinsElement.textContent = redWins;
+        yellowWinsElement.textContent = yellowWins;
     }
 });

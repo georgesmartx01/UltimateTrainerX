@@ -350,7 +350,7 @@ class Minesweeper {
         this.levels = {
             novice: { rows: 9, columns: 9, mines: 10 }, // Beginner difficulty
             intermediate: { rows: 16, columns: 16, mines: 40 }, // Medium difficulty
-            expert: { rows: 30, columns: 16, mines: 99 }, // Hard difficulty
+            expert: { rows: 16, columns: 30, mines: 99 }, // Hard difficulty
             superhuman: { rows: 50, columns: 50, mines: 500 } // Extreme difficulty
         };
     }

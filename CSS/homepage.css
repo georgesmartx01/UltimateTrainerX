@@ -4,102 +4,112 @@
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
-  
+
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200vh;
-}
-
-.container section {
-  margin-top: 30px;
-  border-radius: 20px;
-  padding: 15px;
-  width: 95%;
-  align-items: center;
+  display: flex;
   justify-content: center;
-  transform: translateX(2.5%);
+  align-items: flex-start;
+  min-height: 100vh;
+  flex-direction: column;
+  padding-top: 20px;
 }
 
-.container section h1 {
-  margin-bottom: 5px;
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
 }
 
-.container section p {
+section {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+section h1 {
+  font-size: 1.8rem;
   margin-bottom: 10px;
-  line-height: 1.5;
+}
+
+section p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+section ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+section ul li {
+  margin-bottom: 8px;
 }
 
 .container .home-caption {
-  background: linear-gradient(to right, rgb(20, 27, 70), rgb(21, 30, 88), rgb(11, 23, 99), rgb(18, 22, 48));
+  background: linear-gradient(to right, rgb(20, 27, 70), rgb(21, 30, 88), rgb(11, 23, 99));
 }
 
 .container .perf-mon {
-  background: linear-gradient(to right, rgb(10, 26, 133), rgb(23, 33, 94), rgb(11, 23, 99), rgb(5, 15, 78));
+  background: linear-gradient(to right, rgb(10, 26, 133), rgb(23, 33, 94));
 }
 
 .container .benefits {
-  background: linear-gradient(to right, rgb(20, 28, 73), rgb(14, 28, 117), rgb(6, 23, 136), rgb(16, 35, 156));
+  background: linear-gradient(to right, rgb(20, 28, 73), rgb(14, 28, 117));
 }
 
 .container .personalised-training {
-  background: linear-gradient(to right, rgb(17, 23, 61), rgb(12, 23, 99), rgb(6, 17, 94), rgb(2, 8, 51));
+  background: linear-gradient(to right, rgb(17, 23, 61), rgb(12, 23, 99));
 }
 
 .container .challenges {
-  background: linear-gradient(to right, rgb(15, 25, 85), rgb(15, 23, 75), rgb(15, 21, 65), rgb(2, 8, 51));
+  background: linear-gradient(to right, rgb(15, 25, 85), rgb(15, 23, 75));
 }
 
 .container .accessibility {
-  background: linear-gradient(to right, rgb(3, 10, 54), rgb(2, 10, 58), rgb(3, 12, 71), rgb(5, 15, 78));
+  background: linear-gradient(to right, rgb(3, 10, 54), rgb(2, 10, 58));
 }
 
 .container .privacy-security {
-  background: linear-gradient(to right, rgb(6, 17, 85), rgb(6, 16, 83), rgb(2, 12, 77), rgb(8, 19, 87));
+  background: linear-gradient(to right, rgb(6, 17, 85), rgb(6, 16, 83));
 }
 
-.container .testimonials {
-  background: linear-gradient(to right, rgb(13, 20, 66), rgb(7, 16, 77), rgb(4, 13, 68), rgb(5, 15, 78));
+section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.container .home-caption:hover {
-  background: linear-gradient(rgb(10, 10, 48), rgb(15, 15, 85), rgb(11, 10, 75));
+section h1 {
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.container .perf-mon:hover {
-  background: linear-gradient(rgb(21, 21, 104), rgb(9, 9, 75), rgb(5, 3, 70));
+@media (max-width: 768px) {
+  .container {
+      padding: 10px;
+  }
+
+  section h1 {
+      font-size: 1.6rem;
+  }
+
+  section p, section ul li {
+      font-size: 1rem;
+  }
+
+  section {
+      padding: 15px;
+  }
 }
 
-.container .benefits:hover {
-  background: linear-gradient(rgb(10, 10, 48), rgb(15, 15, 85), rgb(11, 10, 75));
-}
+@media (max-width: 480px) {
+  section h1 {
+      font-size: 1.4rem;
+  }
 
-.container .personalised-training:hover {
-  background: linear-gradient(rgb(27, 27, 68), rgb(29, 29, 109), rgb(6, 4, 97));
-}
-
-.container .accessibility:hover {
-  background: linear-gradient(rgb(24, 24, 94), rgb(11, 11, 104), rgb(13, 12, 66));
-}
-
-.container .challenges:hover {
-  background: linear-gradient(rgb(3, 3, 70), rgb(17, 17, 114), rgb(15, 15, 90));
-}
-
-.container .privacy-security:hover {
-  background: linear-gradient(rgb(6, 6, 102), rgb(5, 5, 114), rgb(10, 10, 107)); 
-}
-
-.container .testimonials:hover {
-  background: linear-gradient(rgb(14, 14, 95), rgb(11, 11, 114), rgb(6, 4, 112));
-}
-
-.container .home-caption:hover, 
-.perf-mon:hover, .benefits:hover,
-.personalised-training:hover, .challenges:hover,
-.accessibility:hover, .privacy-security:hover,
-.testimonials:hover {
-  scale: 1.03;
-  transition: all 0.2s ease;
+  section p, section ul li {
+      font-size: 0.9rem;
+  }
 }

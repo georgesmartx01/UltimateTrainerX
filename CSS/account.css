@@ -1,0 +1,136 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.account-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+.card img.user_image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.update-details-btn {
+    background-color: darkblue;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.update-details-btn a {
+    text-decoration: none;
+    color: white;
+}
+
+#update-details-popup {
+    display: none;
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, 15%);
+    z-index: 1000;
+    background: rgb(8, 8, 87);
+    padding: 25px;
+    border: 2px solid blue;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+}
+
+#update-details-popup h3 {
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#update-details-popup input[type="text"],
+#update-details-popup input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    background-color: rgb(3, 3, 48);
+    border: 2px solid blue;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+#update-details-popup input[type="submit"],
+#update-details-popup button {
+    padding: 12px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#update-details-popup button {
+    background-color: navy;
+}
+
+#update-details-popup input[type="submit"]:hover {
+    background-color: navy;
+}
+
+#update-details-popup button:hover {
+    background-color: blue;
+}
+
+.error-box,
+.success-box {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 12px 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.error-box {
+    background-color: #ffe0e0;
+    color: #a10000;
+    border: 1px solid #d88;
+}
+
+.success-box {
+    background-color: #e0ffe0;
+    color: #007700;
+    border: 1px solid #8d8;
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 20px;
+    }
+
+    #update-details-popup {
+        top: 5%;
+        padding: 15px;
+    }
+}

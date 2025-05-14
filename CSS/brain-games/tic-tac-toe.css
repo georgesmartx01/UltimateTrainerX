@@ -1,91 +1,104 @@
-* {
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-    color: #fff; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
-    margin: 0;
-}
-
-#game-container {
+    height: 100vh;
+  }
+  
+  .container {
+    max-width: 500px;
+    margin: 100px auto 40px auto;
     text-align: center;
-}
-
-#board {
+    padding: 20px;
+    background: rgb(3, 3, 48);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+  
+  h1 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .status {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .board {
     display: grid;
-    grid-template-columns: repeat(3, 100px);
+    grid-template-columns: repeat(3, 1fr);
     gap: 5px;
-    margin-top: 20px;
-}
-
-.cell {
+    margin: 10px auto;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .cell {
     width: 100px;
     height: 100px;
-    background-color: rgb(16, 18, 90);
+    background: rgb(10, 10, 133);
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 60px;
+    justify-content: center;
+    font-size: 2.5em;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-    border-radius: 5px;
-}
-
-.cell:hover {
-    background-color: rgb(16, 19, 114);
-    transform: scale(1.05);
-}
-
-#status {
+    transition: background 0.2s;
+  }
+  
+  .cell:hover {
+    background-color: navy;
+  }
+  
+  .controls {
     margin-top: 20px;
-    font-size: 24px;
-}
-
-#popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     justify-content: center;
-    align-items: center;
-}
-
-#popup-content {
-    transform: translateY(-60%);
-    background-color: rgb(13, 15, 53);
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-#popup h2 {
-    margin-top: 0;
-    color: green;
-}
-
-#restart-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: blue;
-    color: white;
+  }
+  
+  .controls button,
+  .controls select {
+    padding: 10px 15px;
+    font-size: 1em;
     border: none;
+    border-radius: 20px;
+    background: blue;
+    color: white;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-    border-radius: 5px;
-}
-
-#restart-btn:hover {
-    background-color: slateblue;
-    transform: scale(1.05);
-}
+    transition: background 0.2s;
+  }
+  
+  .controls button:hover,
+  .controls select:hover {
+    background: navy;
+  }
+  
+  .controls select {
+    background: blue;
+  }
+  
+  .scores {
+    margin-top: 20px;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: space-around;
+    color: white;
+  }
+  
+  @media (max-width: 480px) {
+    .cell {
+      width: 80px;
+      height: 80px;
+      font-size: 2em;
+    }
+  
+    .controls {
+      flex-direction: column;
+    }
+  }  
