@@ -3,7 +3,7 @@ ob_start();
 session_start();
 include "connectdb.php";
 
-// CSRF functions
+// CSRF helper functions
 function generateCSRFToken() {
     if (empty($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -16,33 +16,35 @@ function verifyCSRFToken($token) {
 
 // Enforce HTTPS
 if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
-    header("Location: user-login.php?msg=" . urlencode("Login successful! Redirecting..."));
+    $redirect = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    header("Location: $redirect");
     exit();
 }
 
-// Security Headers
+// Security headers
 header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: SAMEORIGIN");
 header("X-XSS-Protection: 1; mode=block");
 
-// Already logged in?
-if (isset($_SESSION['username']) && isset($_SESSION['User_ID'])) {
+// If already logged in
+if (isset($_SESSION['username'], $_SESSION['User_ID'])) {
     header("Location: accountpage.php");
     exit();
 }
 
-// Rate Limiting
+// Rate limiting
 $ip = $_SERVER['REMOTE_ADDR'];
 $limit_stmt = $pdo->prepare("SELECT COUNT(*) FROM login_attempts WHERE ip = :ip AND timestamp > (NOW() - INTERVAL 15 MINUTE)");
 $limit_stmt->execute([':ip' => $ip]);
 if ($limit_stmt->fetchColumn() >= 5) {
-    header("Location: user-login.php?error=" . urlencode("Too many login attempts. Please try again later."));
+    $_SESSION['error'] = "Too many login attempts. Please try again later.";
+    header("Location: user-login.php");
     exit();
 }
 
-// Handle login
+// Handle login form submission
 if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['loginbtn'])) {
-    if (!verifyCSRFToken($_POST['csrf_token'])) {
+    if (!verifyCSRFToken($_POST['csrf_token'] ?? '')) {
         die("Invalid CSRF token.");
     }
 
@@ -50,11 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['loginbtn'])) {
     $passwordSubmit = $_POST['password'];
 
     if (strlen($usernameSubmit) > 50 || strlen($passwordSubmit) > 100) {
-        header("Location: user-login.php?error=" . urlencode("Input too long."));
+        $_SESSION['error'] = "Input too long.";
+        header("Location: user-login.php");
         exit();
     }
 
-    $stmt = $pdo->prepare("SELECT * FROM `users` WHERE Username = :username");
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE Username = :username");
     $stmt->bindParam(':username', $usernameSubmit);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -66,79 +69,88 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['loginbtn'])) {
         $_SESSION['User_ID'] = $user['User_ID'];
         $success = 1;
 
+        // Log success
         $log = $pdo->prepare("INSERT INTO login_attempts (ip, username, success, timestamp) VALUES (:ip, :username, :success, NOW())");
         $log->execute([':ip' => $ip, ':username' => $usernameSubmit, ':success' => $success]);
 
+        // Redirect after login
         $redirect = $_SESSION['prev_page'] ?? "accountpage.php";
         header("Location: $redirect");
         exit();
     } else {
+        // Log failed login
         $log = $pdo->prepare("INSERT INTO login_attempts (ip, username, success, timestamp) VALUES (:ip, :username, :success, NOW())");
         $log->execute([':ip' => $ip, ':username' => $usernameSubmit, ':success' => $success]);
 
-        header("Location: user-login.php?error=" . urlencode("Invalid login credentials."));
+        $_SESSION['error'] = "Invalid login credentials.";
+        header("Location: user-login.php");
         exit();
     }
 }
+
+// Retrieve and clear messages
+$msg = $_SESSION['msg'] ?? null;
+$error = $_SESSION['error'] ?? null;
+unset($_SESSION['msg'], $_SESSION['error']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/user-login.css">
     <link rel="stylesheet" href="CSS/navbar.css">
     <link rel="stylesheet" href="CSS/password-generator.css">
 </head>
-<?php include "navbar.php"; ?>
 <body>
-    <div class="wrapper">
-        <!-- Error/Success messages inside the wrapper, above the form -->
-        <?php if (isset($_GET['error'])): ?>
-            <div class="error-box"><?= htmlspecialchars($_GET['error']) ?></div>
-        <?php endif; ?>
-        <?php if (isset($_GET['msg'])): ?>
-            <div class="success-box"><?= htmlspecialchars($_GET['msg']) ?></div>
-        <?php endif; ?>
+<?php include "navbar.php"; ?>
 
-        <form method="post" action="user-login.php">
-            <h1>Login Form</h1>
+<div class="wrapper">
+    <!-- Show success or error messages -->
+    <?php if ($msg): ?>
+        <div class="success-box"><?= htmlspecialchars($msg) ?></div>
+    <?php endif; ?>
+    <?php if ($error): ?>
+        <div class="error-box"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
 
-            <div class="input-box">
-                <input type="text" placeholder="Username" name="username" maxlength="50" required>
-                <i class="fa fa-user"></i>
-            </div>
+    <form method="post" action="user-login.php">
+        <h1>Login Form</h1>
 
-            <div class="input-box">
-                <input type="password" placeholder="Enter your password" name="password" maxlength="100" id="loginPassInput" required>
-                <i class="fa-solid fa-lock"></i>
-                <i class="fa-solid fa-eye-slash" id="toggleLoginPassword" onclick="togglePasswordVisibility(event, 'loginPassInput')"></i>
-            </div>
+        <div class="input-box">
+            <input type="text" name="username" placeholder="Username" maxlength="50" required>
+            <i class="fa fa-user"></i>
+        </div>
 
-            <!-- CSRF Token -->
-            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCSRFToken()) ?>">
+        <div class="input-box">
+            <input type="password" name="password" placeholder="Enter your password" maxlength="100" id="loginPassInput" required>
+            <i class="fa-solid fa-lock"></i>
+            <i class="fa-solid fa-eye-slash" id="toggleLoginPassword" onclick="togglePasswordVisibility(event, 'loginPassInput')"></i>
+        </div>
 
-            <div class="remember-forgot">
-                <label class="remember-me">Remember me 
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label>
-                <a href="forgot-password.php">Forgot Password</a>
-            </div>
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCSRFToken()) ?>">
 
-            <button id="generate-pass-btn" type="button">Generate Password</button>
-            <button type="submit" name="loginbtn" class="login-btn">Login</button>
+        <div class="remember-forgot">
+            <label class="remember-me">Remember me 
+                <input type="checkbox">
+                <span class="checkmark"></span>
+            </label>
+            <a href="forgot-password.php">Forgot Password</a>
+        </div>
 
-            <div class="register-link">
-                <p>Don't have an account? <a href="register-user.php">Click to register</a></p>
-            </div>       
-        </form>
-    </div>
+        <button id="generate-pass-btn" type="button">Generate Password</button>
+        <button type="submit" name="loginbtn" class="login-btn">Login</button>
 
-    <?php include "password-generator.php"; ?>
-    <script src="JavaScript/password-generator/password-generator.js"></script>
-    <script src="JavaScript/toggle-password-visibility/toggle-password-visibility.js"></script>
+        <div class="register-link">
+            <p>Don't have an account? <a href="register-user.php">Click to register</a></p>
+        </div>       
+    </form>
+</div>
+
+<?php include "password-generator.php"; ?>
+<script src="JavaScript/password-generator/password-generator.js"></script>
+<script src="JavaScript/toggle-password-visibility/toggle-password-visibility.js"></script>
 </body>
 </html>
 <?php ob_end_flush(); ?>
