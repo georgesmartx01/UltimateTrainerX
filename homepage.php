@@ -73,6 +73,22 @@ include "navbar.php";
         </section>
     </div>
 
+    <section class="testimonials">
+    <h1>What Our Users Say</h1>
+    <div class="testimonial">
+        <p>"UltimateTrainerX helped me sharpen my memory and focus during exam season. I never thought brain training could be this fun!"</p>
+        <h4>— Anya R., University Student</h4>
+    </div>
+    <div class="testimonial">
+        <p>"As a retiree, keeping my mind active is crucial. These challenges are my daily brain gym!"</p>
+        <h4>— David M., Retired Engineer</h4>
+    </div>
+    <div class="testimonial">
+        <p>"I introduced this to my students and saw real improvements in problem-solving and engagement. A game-changer in education!"</p>
+        <h4>— Ms. Patel, High School Teacher</h4>
+    </div>
+</section>
+
     <?php include "footer.php"; ?>
 </body>
 </html>
